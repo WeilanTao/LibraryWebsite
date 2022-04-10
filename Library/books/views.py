@@ -14,10 +14,14 @@ def get_authors(request):
 
     return render(request, 'authorslist.html', context = data)
 
-def get_books(request):
-    books = Book.objects.values()
+def get_books(request, auth_tag):
+    books = Book.objects.filter(author_tag = auth_tag)
 
-    return HttpResponse(books)       
+    data={
+        "books":books
+    }
+
+    return render(request, 'booklist.html', context=data)       
 
 def get_chapters(request):
     chapters = Chapter.objects.values()
