@@ -9,7 +9,7 @@
   <body>
     <ul>
       {%for author in authors%}
-      <li>{{author.author_name}}</li>
+      <li><a href="{% url 'books:get_books' %}">{{author.author_name}} </a></li>
 
       {% endfor %}
     </ul>
