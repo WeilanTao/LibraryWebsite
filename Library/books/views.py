@@ -5,15 +5,14 @@ import sys
 import os
 
 # Create your views here.
-def index(request):
-
-    return HttpResponse("this is: ", sys.path.append(os.path.dirname(os.path.abspath('.'))))
-
-
 def get_authors(request):
-    authors = Author.objects.values()
+    authors = Author.objects.order_by('author_name')
 
-    return HttpResponse(authors)
+    data ={
+        "authors": authors
+    }
+
+    return render(request, 'authorslist.html', context = data)
 
 def get_books(request):
     books = Book.objects.values()
