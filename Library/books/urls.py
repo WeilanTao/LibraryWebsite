@@ -6,4 +6,5 @@ app_name = 'books'
 urlpatterns = [
     path("", views.get_authors, name ="get_authors"),
     path("book/<auth_tag>/$", views.get_books, name="get_books"),
+    path("book/<auth_tag>/<book_tag>/$", views.get_chapters, name="get_chapters")
 ]
