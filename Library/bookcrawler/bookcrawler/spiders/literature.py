@@ -1,6 +1,4 @@
 import time
-
-### TODO: why not import scrapy??
 import scrapy 
 
 import json
@@ -113,7 +111,7 @@ class LiteratureSpider(scrapy.Spider):
         transitem['chapteritem']=chapteritem
 
         # pass item to the pipline
-        yield transitem.copy()
+        yield transitem
 
     def closed(self, spider):
         print(time.time() - self.start_time)

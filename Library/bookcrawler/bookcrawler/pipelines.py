@@ -35,14 +35,17 @@ class BookcrawlerPipeline:
 
     def store_author(self, item):
         # check if the author is in the database
+        # print("/////////////////////////////checking ...")
         self.curr.execute(
-            """SELECT author_tag FROM books_author WHERE author_tag = %s""",
+            """SELECT author_tag FROM Library.books_author WHERE author_tag = %s""",
             (item['author_tag'],))
         myresult = self.curr.fetchall()
+        # print("/////////////////////////////checking end...", myresult)
+
 
         # if author not on the database, insert it
         if not myresult:
-            self.curr.execute(""" INSERT INTO books_author VALUES (%s, %s)""",
+            self.curr.execute(""" INSERT INTO Library.books_author VALUES (%s, %s)""",
                               (
                                   item['author_tag'],
                                   item['author_name']
@@ -52,13 +55,13 @@ class BookcrawlerPipeline:
     def store_book(self, item):
         # # check if the book is in the database
         self.curr.execute(
-            """SELECT book_tag FROM books_book WHERE book_tag = %s""",
+            """SELECT book_tag FROM Library.books_book WHERE book_tag = %s""",
             (item['book_tag'],))
         myresult = self.curr.fetchall()
 
         # if book not on the database, insert it
         if not myresult:
-            self.curr.execute(""" INSERT INTO books_book (book_tag, book_name, author_tag) VALUES (%s, %s, %s)""",
+            self.curr.execute(""" INSERT INTO Library.books_book (book_tag, book_name, author_tag) VALUES (%s, %s, %s)""",
                               (
                                   item['book_tag'],
                                   item['book_name'],
@@ -69,13 +72,13 @@ class BookcrawlerPipeline:
     def store_chapter(self, item):
         # check if the chapter is in the database
         self.curr.execute(
-            """SELECT chapter_name FROM books_chapter WHERE chapter_name = %s""",
+            """SELECT chapter_name FROM Library.books_chapter WHERE chapter_name = %s""",
             (item['chapter_name'],))
         myresult = self.curr.fetchall()
 
         # # if chapter not on the database, insert it
         if not myresult:
-            self.curr.execute(""" INSERT INTO books_chapter (chapter_name,book_tag, chapter_content) VALUES (%s, %s, %s)""",
+            self.curr.execute(""" INSERT INTO Library.books_chapter (chapter_name,book_tag, chapter_content) VALUES (%s, %s, %s)""",
                               (
                                   item['chapter_name'],
                                   item['book_tag'],
