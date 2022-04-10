@@ -69,8 +69,8 @@ class BookcrawlerPipeline:
     def store_chapter(self, item):
         # check if the chapter is in the database
         self.curr.execute(
-            """SELECT chapter_name FROM Library.books_chapter WHERE chapter_name = %s""",
-            (item['chapter_name'],))
+            """SELECT chapter_name FROM Library.books_chapter WHERE chapter_name = %s AND book_tag = %s""",
+            (item['chapter_name'], item['book_tag']))
         myresult = self.curr.fetchall()
 
         # # if chapter not on the database, insert it
