@@ -35,13 +35,10 @@ class BookcrawlerPipeline:
 
     def store_author(self, item):
         # check if the author is in the database
-        # print("/////////////////////////////checking ...")
         self.curr.execute(
             """SELECT author_tag FROM Library.books_author WHERE author_tag = %s""",
             (item['author_tag'],))
         myresult = self.curr.fetchall()
-        # print("/////////////////////////////checking end...", myresult)
-
 
         # if author not on the database, insert it
         if not myresult:
