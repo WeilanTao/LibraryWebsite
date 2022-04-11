@@ -7,13 +7,13 @@
     <title>BookList</title>
   </head>
   <body>
-    <h1>{{auth_name}} Book List</h1>
+    <h1>{{author_name}} Book List</h1>
     <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
 
     <ul>
       {%for book in books%}
       <li>
-        <a href="{% url 'books:get_chapters' auth_tag book.book_tag %}"
+        <a href="{% url 'books:get_chapters' author_tag book.book_tag %}"
           >{{book.book_name}}
         </a>
       </li>
