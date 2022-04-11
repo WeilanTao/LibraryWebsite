@@ -25,7 +25,7 @@ def get_books(request, auth_tag):
     return render(request, 'booklist.html', context=data)       
 
 def get_chapters(request, auth_tag, book_tag):
-    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name')
+    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
 
     data = {
         "chapters":chapters,
@@ -38,10 +38,55 @@ def get_chapter_content(request, auth_tag, book_tag, chapter_id):
 
     chapter = Chapter.objects.filter(id = chapter_id).first()
 
-    # print(str(chapter['chapter_content']))
-
     data ={
         "chapter":chapter,
+        "author": auth_tag
     }
 
     return render(request, 'chaptercontent.html', context=data)
+
+def get_next_previous(request, auth_tag, book_tag, chapter_id, next_previous):
+    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
+
+    # print(type(next_previous), type(0))
+    if(next_previous == "0"):
+        chapters = chapters.reverse()
+    
+    chapterslist = list(chapters)
+
+    isFound = 0
+ 
+
+    for chapter in chapterslist:        
+        if isFound == 1:
+            data = {
+                "chapter":chapter,
+                "author": auth_tag
+            }
+            return render(request, 'chaptercontent.html', context=data)
+        if str(chapter.id) == chapter_id:
+            print("Found")
+            isFound = 1
+
+    return HttpResponse("hELLO")
+
+
+
+def get_previous_chapter(request, auth_tag, book_tag, chapter_id):
+    chapters = list(Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index').reverse())
+
+    isFound = 0
+ 
+
+    for chapter in chapters:        
+        if isFound == 1:
+            data = {
+                "chapter":chapter,
+                "author": auth_tag
+            }
+            return render(request, 'chaptercontent.html', context=data)
+        if str(chapter.id) == chapter_id:
+            print("Found")
+            isFound = 1
+
+    return HttpResponse("hELLO")    

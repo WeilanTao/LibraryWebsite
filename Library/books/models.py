@@ -14,6 +14,7 @@ class Book(models.Model):
     # author_tag = models.ForeignKey(Author, on_delete=models.CASCADE)
 
 class Chapter(models.Model):
+    chapter_index = models.CharField(max_length = 255)
     chapter_name= models.CharField(max_length = 255)
     book_tag = models.CharField(max_length = 255)
     chapter_content= models.TextField(default='SOME STRING')
