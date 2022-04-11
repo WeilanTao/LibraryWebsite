@@ -45,16 +45,19 @@ def get_chapter_content(request, auth_tag, book_tag, chapter_id):
 
     return render(request, 'chaptercontent.html', context=data)
 
-def get_next_chapter(request, auth_tag, book_tag, chapter_id):
-    chapters = list(Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name'))
+def get_next_previous(request, auth_tag, book_tag, chapter_id, next_previous):
+    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name')
+
+    # print(type(next_previous), type(0))
+    if(next_previous == "0"):
+        chapters = chapters.reverse()
+    
+    chapterslist = list(chapters)
 
     isFound = 0
  
 
-    for chapter in chapters:
-        print(type(chapter.id), type(chapter_id))
-        
-
+    for chapter in chapterslist:        
         if isFound == 1:
             data = {
                 "chapter":chapter,
@@ -65,14 +68,25 @@ def get_next_chapter(request, auth_tag, book_tag, chapter_id):
             print("Found")
             isFound = 1
 
-    
     return HttpResponse("hELLO")
 
-        
-        
-        # print(chapter_fields)
-        # if chapter['chapter_id']== chapter_id:
-        #     index = 1
-        
 
-    
+
+def get_previous_chapter(request, auth_tag, book_tag, chapter_id):
+    chapters = list(Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name').reverse())
+
+    isFound = 0
+ 
+
+    for chapter in chapters:        
+        if isFound == 1:
+            data = {
+                "chapter":chapter,
+                "author": auth_tag
+            }
+            return render(request, 'chaptercontent.html', context=data)
+        if str(chapter.id) == chapter_id:
+            print("Found")
+            isFound = 1
+
+    return HttpResponse("hELLO")    
