@@ -8,7 +8,15 @@
   </head>
   <body>
     <ul>
-      {% for chapter in chapters%} <li>{{chapter.chapter_name}} </li>{% endfor%}</li>
+      {% for chapter in chapters%}
+      <li>
+        <a
+          href="{% url 'books:get_content' author chapter.book_tag chapter.id%}"
+        >
+          {{chapter.chapter_name}}
+        </a>
+      </li>
+      {% endfor%}
     </ul>
   </body>
 </html>

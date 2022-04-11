@@ -28,11 +28,20 @@ def get_chapters(request, auth_tag, book_tag):
     chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name')
 
     data = {
-        "chapters":chapters
+        "chapters":chapters,
+        'author':auth_tag
     }
 
     return render(request, 'chapterlist.html', context=data)
 
-def get_chapter_content(request):
-    
-    return HttpResponse("Hello")
+def get_chapter_content(request, auth_tag, book_tag, chapter_id):
+
+    chapter = Chapter.objects.filter(id = chapter_id).first()
+
+    # print(str(chapter['chapter_content']))
+
+    data ={
+        "chapter":chapter,
+    }
+
+    return render(request, 'chaptercontent.html', context=data)
