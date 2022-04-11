@@ -25,7 +25,7 @@ def get_books(request, auth_tag):
     return render(request, 'booklist.html', context=data)       
 
 def get_chapters(request, auth_tag, book_tag):
-    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name')
+    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
 
     data = {
         "chapters":chapters,
@@ -46,7 +46,7 @@ def get_chapter_content(request, auth_tag, book_tag, chapter_id):
     return render(request, 'chaptercontent.html', context=data)
 
 def get_next_previous(request, auth_tag, book_tag, chapter_id, next_previous):
-    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name')
+    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
 
     # print(type(next_previous), type(0))
     if(next_previous == "0"):
@@ -73,7 +73,7 @@ def get_next_previous(request, auth_tag, book_tag, chapter_id, next_previous):
 
 
 def get_previous_chapter(request, auth_tag, book_tag, chapter_id):
-    chapters = list(Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name').reverse())
+    chapters = list(Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index').reverse())
 
     isFound = 0
  

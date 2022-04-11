@@ -87,7 +87,8 @@ class LiteratureSpider(scrapy.Spider):
 
             chapter_url = 'https://www.literature.org/authors/' + \
                 author_tag+'/'+book_tag+'/'+chapter_href
-
+            
+            chapteritem['chapter_index'] = chapter_href
             chapteritem['chapter_name'] = chapter_name
             chapteritem['book_tag']= book_tag
             yield scrapy.Request(url=chapter_url, callback=self.parse_chapter,  
