@@ -7,15 +7,15 @@
     <title>ChapterList</title>
   </head>
   <body>
-    <h1>Chapter List</h1>
+    <h1>{{book_name}} Chapter List</h1>
     <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
-    <a href="{% url 'books:get_books' author%}"> Back to Book List</a>
+    <a href="{% url 'books:get_books' author_tag%}"> Back to Book List</a>
 
     <ul>
       {% for chapter in chapters%}
       <li>
         <a
-          href="{% url 'books:get_content' author chapter.book_tag chapter.id%}"
+          href="{% url 'books:get_content' author_tag chapter.book_tag chapter.id%}"
         >
           {{chapter.chapter_name}}
         </a>
