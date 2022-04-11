@@ -17,9 +17,12 @@ def get_authors(request):
 def get_books(request, auth_tag):
     books = Book.objects.filter(author_tag = auth_tag)
 
+    author_name = get_author_name(auth_tag)
+
     data={
         "books":books,
-        "auth_tag" : auth_tag
+        "auth_tag" : auth_tag,
+        "auth_name" : author_name
     }
 
     return render(request, 'booklist.html', context=data)       
@@ -27,9 +30,12 @@ def get_books(request, auth_tag):
 def get_chapters(request, auth_tag, book_tag):
     chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
 
+    book_name = get_book_name(book_tag)
+
     data = {
         "chapters":chapters,
-        'author':auth_tag
+        'author':auth_tag,
+        "book_name":book_name
     }
 
     return render(request, 'chapterlist.html', context=data)
@@ -37,10 +43,11 @@ def get_chapters(request, auth_tag, book_tag):
 def get_chapter_content(request, auth_tag, book_tag, chapter_id):
 
     chapter = Chapter.objects.filter(id = chapter_id).first()
-
+    book_name = get_book_name(book_tag)
     data ={
         "chapter":chapter,
-        "author": auth_tag
+        "author": auth_tag,
+        "book_name":book_name
     }
 
     return render(request, 'chaptercontent.html', context=data)
@@ -56,12 +63,14 @@ def get_next_previous(request, auth_tag, book_tag, chapter_id, next_previous):
 
     isFound = 0
  
+    book_name = get_book_name(book_tag)
 
     for chapter in chapterslist:        
         if isFound == 1:
             data = {
                 "chapter":chapter,
-                "author": auth_tag
+                "author": auth_tag,
+                "book_name":book_name
             }
             return render(request, 'chaptercontent.html', context=data)
         if str(chapter.id) == chapter_id:
@@ -90,3 +99,12 @@ def get_previous_chapter(request, auth_tag, book_tag, chapter_id):
             isFound = 1
 
     return HttpResponse("hELLO")    
+
+def get_author_name (auth_tag):
+    res_name = Author.objects.filter(author_tag = auth_tag).only('author_name').first()
+    return res_name.author_name
+
+
+def get_book_name (book_tag):
+    res_name = Book.objects.filter(book_tag = book_tag).only('book_name').first()
+    return res_name.book_name
