@@ -42,6 +42,7 @@ def get_chapter_content(request, auth_tag, book_tag, chapter_id):
 
     data ={
         "chapter":chapter,
+        "author": auth_tag
     }
 
     return render(request, 'chaptercontent.html', context=data)

@@ -8,6 +8,9 @@
   </head>
   <body>
     <h1>Chapter List</h1>
+    <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
+    <a href="{% url 'books:get_books' author%}"> Back to Book List</a>
+
     <ul>
       {% for chapter in chapters%}
       <li>

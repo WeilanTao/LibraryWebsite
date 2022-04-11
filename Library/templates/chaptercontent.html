@@ -7,8 +7,12 @@
     <title>ChapterContent</title>
   </head>
   <body>
-  
     <h1>{{chapter.chapter_name}}</h1>
+    <a href="{% url 'books:get_chapters' author chapter.book_tag%}">
+      Back to Chapter List
+    </a>
+    <a>Previous Chapter</a>
+    <a>Next Chapter</a>
 
     <p>{{chapter.chapter_content}}</p>
   </body>
