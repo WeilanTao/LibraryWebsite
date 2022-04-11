@@ -11,8 +11,16 @@
     <a href="{% url 'books:get_chapters' author chapter.book_tag%}">
       Back to Chapter List
     </a>
-    <a>Previous Chapter</a>
-    <a>Next Chapter</a>
+    <a
+      href="{% url 'books:get_next_chapter' author chapter.book_tag chapter.id%}"
+      >Next Chapter</a
+    >
+    {% comment %}
+    <a
+      href="{% url 'books:get_previous_chapter' author chapter.book_tag chapter.id%}"
+      >Previous Chapter</a
+    >
+    {% endcomment %}
 
     <p>{{chapter.chapter_content}}</p>
   </body>

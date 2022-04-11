@@ -38,11 +38,41 @@ def get_chapter_content(request, auth_tag, book_tag, chapter_id):
 
     chapter = Chapter.objects.filter(id = chapter_id).first()
 
-    # print(str(chapter['chapter_content']))
-
     data ={
         "chapter":chapter,
         "author": auth_tag
     }
 
     return render(request, 'chaptercontent.html', context=data)
+
+def get_next_chapter(request, auth_tag, book_tag, chapter_id):
+    chapters = list(Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_name'))
+
+    isFound = 0
+ 
+
+    for chapter in chapters:
+        print(type(chapter.id), type(chapter_id))
+        
+
+        if isFound == 1:
+            data = {
+                "chapter":chapter,
+                "author": auth_tag
+            }
+            return render(request, 'chaptercontent.html', context=data)
+        if str(chapter.id) == chapter_id:
+            print("Found")
+            isFound = 1
+
+    
+    return HttpResponse("hELLO")
+
+        
+        
+        # print(chapter_fields)
+        # if chapter['chapter_id']== chapter_id:
+        #     index = 1
+        
+
+    
