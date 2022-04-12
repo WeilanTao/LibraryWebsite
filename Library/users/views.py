@@ -1,19 +1,30 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+import imp
+import sys
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect
 from users.models import Users
+from django.urls import reverse
+
+sys.path.append('../Library')
+import constant
+
 
 # Create your views here.
 def login(request):
+    if request.method =="GET":
+        return render(request, "users/login.html")
+    elif request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
 
     return HttpResponse("Login")
 
 
 def register(request): 
     if request.method == "GET":
-        data ={
-            "title":"Register"
-        }
-        return render(request, "users/register.html", context = data)
+
+        return render(request, "users/register.html")
     elif request.method== "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
@@ -26,4 +37,20 @@ def register(request):
 
         user.save()
 
-        return HttpResponse("REGISTER SUCCESS")
+        return redirect(reverse("users:login"))
+
+def userverify(request):
+    email = request.GET.get("email")
+
+    users = Users.objects.filter(email = email)
+
+    data = {
+        "status": constant.HTTP_OK, 
+        "msg": "ok"
+    }
+    if users.exists():
+        data['status']=constant.HTTP_USER_EXIST
+        data['msg']='user already exists'
+        return JsonResponse(data=data)
+    else:
+        return JsonResponse(data=data)
