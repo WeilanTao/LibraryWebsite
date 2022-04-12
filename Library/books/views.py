@@ -12,7 +12,7 @@ def get_authors(request):
         "authors": authors
     }
 
-    return render(request, 'authorslist.html', context = data)
+    return render(request, 'books/authorslist.html', context = data)
 
 def get_books(request, author_tag):
     books = Book.objects.filter(author_tag = author_tag)
@@ -25,7 +25,7 @@ def get_books(request, author_tag):
         "author_name" : author_name
     }
 
-    return render(request, 'booklist.html', context=data)       
+    return render(request, 'books/booklist.html', context=data)       
 
 def get_chapters(request, author_tag, book_tag):
     chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
@@ -38,7 +38,7 @@ def get_chapters(request, author_tag, book_tag):
         "book_name":book_name
     }
 
-    return render(request, 'chapterlist.html', context=data)
+    return render(request, 'books/chapterlist.html', context=data)
 
 def get_chapter_content(request, author_tag, book_tag, chapter_id):
 
@@ -50,7 +50,7 @@ def get_chapter_content(request, author_tag, book_tag, chapter_id):
         "book_name":book_name
     }
 
-    return render(request, 'chaptercontent.html', context=data)
+    return render(request, 'books/chaptercontent.html', context=data)
 
 def get_next_previous(request, author_tag, book_tag, chapter_id, next_previous):
     chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
@@ -72,7 +72,7 @@ def get_next_previous(request, author_tag, book_tag, chapter_id, next_previous):
                 "author_tag": author_tag,
                 "book_name":book_name
             }
-            return render(request, 'chaptercontent.html', context=data)
+            return render(request, 'books/chaptercontent.html', context=data)
         if str(chapter.id) == chapter_id:
             print("Found")
             isFound = 1
