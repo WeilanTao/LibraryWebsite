@@ -11,13 +11,17 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script
     type="text/javascript"
-    src="{% static 'users/js/login_register_valid.js' %}"
+    src="{% static 'users/js/register.js' %}"
   ></script>
   <body>
     <h2>Register</h2>
 
     <div class="container">
-      <form method="post" action="{% url 'users:register' %}">
+      <form
+        method="post"
+        action="{% url 'users:register' %}"
+        onsubmit="return canSumbit()"
+      >
         {% csrf_token %}
 
         <div class="mb-3">
@@ -38,6 +42,7 @@
             id="email_input"
             placeholder="Please enter your email"
           />
+          <div id="email_info"></div>
         </div>
         <div class="mb-3">
           <label for="password_input" class="form-label">Password</label>
@@ -57,6 +62,7 @@
             id="confirm_password_input"
             placeholder="Please confirm your password"
           />
+          <div id="confirm_password_info"></div>
         </div>
 
         <button type="submit" value="Submit" class="btn btn-primary">
