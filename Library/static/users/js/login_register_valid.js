@@ -6,7 +6,7 @@ $(function () {
   $email.change(function () {
     var email = $email.val().trim();
 
-    if (email.length()) {
+    if (email.length) {
       //check if user exists
       $.getJSON("/users/userverify/", { email: email }, function (data) {
         console.log(data);
