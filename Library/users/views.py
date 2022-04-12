@@ -12,6 +12,15 @@ import constant
 
 
 # Create your views here.
+
+def mine(request):
+    user_id = request.session.get('user_id')
+
+    
+    return render(request, "users/usercenter.html")
+
+
+
 def login(request):
     if request.method =="GET":
         return render(request, "users/login.html")
@@ -24,7 +33,7 @@ def login(request):
             user = users.first()
             if check_password(password, user.password):
                 request.session['user_id'] = user.id
-                return HttpResponse("Hello")
+                return redirect(reverse("users:mine"))
             else:
                 return redirect(reverse("users:login"))
         
