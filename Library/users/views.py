@@ -1,10 +1,11 @@
 import imp
+from re import U
 import sys
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from users.models import Users
 from django.urls import reverse
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password,check_password
 
 sys.path.append('../Library')
 import constant
@@ -17,10 +18,17 @@ def login(request):
     elif request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password","encodeme")
+        users = Users.objects.filter(email = email)
 
-
-    return HttpResponse("Login")
-
+        if users.exists():
+            user = users.first()
+            if check_password(password, user.password):
+                request.session['user_id'] = user.id
+                return HttpResponse("Hello")
+            else:
+                return redirect(reverse("users:login"))
+        
+        return redirect(reverse("users:login"))
 
 def register(request): 
     if request.method == "GET":
