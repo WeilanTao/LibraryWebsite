@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookList</title>
   </head>
+
+  {% load static %}
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script
+    type="text/javascript"
+    src="{% static 'books/js/books.js' %}"
+  ></script>
+
   <body>
     <h1>{{author_name}} Book List</h1>
     <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
@@ -13,9 +21,14 @@
     <ul>
       {%for book in books%}
       <li>
-        <a href="{% url 'books:get_chapters' author_tag book.book_tag %}"
+        <a
+          id="book_name"
+          href="{% url 'books:get_chapters' author_tag book.book_tag %}"
           >{{book.book_name}}
         </a>
+        <button onClick="return Add_to_List('{{book.book_name}}')">
+          Add to List
+        </button>
       </li>
       {% endfor %}
     </ul>
