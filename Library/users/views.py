@@ -12,14 +12,24 @@ import constant
 
 
 # Create your views here.
+def logout(request):
+    user_id = request.session.get('user_id')
+
+    if user_id:
+        request.session.flush()
+    
+    return redirect(reverse("books:get_authors"))
 
 def mine(request):
     user_id = request.session.get('user_id')
 
+    data={}
+    if user_id:
+        user = Users.objects.get(id = user_id)
+        data['username']=user.name
+        return render(request, "users/usercenter.html",context=data)
     
-    return render(request, "users/usercenter.html")
-
-
+    return redirect(reverse("users:login"))
 
 def login(request):
     if request.method =="GET":

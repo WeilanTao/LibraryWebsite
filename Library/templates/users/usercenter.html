@@ -7,6 +7,10 @@
     <title>Mine</title>
   </head>
   <body>
-    <div>Hello World</div>
+    <div>Hello {{username}}</div>
+
+    <p>
+      <a href="{% url "users:logout" %}">Log out</a>
+    </p>
   </body>
 </html>

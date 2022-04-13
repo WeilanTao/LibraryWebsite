@@ -6,11 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
   </head>
+
+  {% load static %}
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script
+    type="text/javascript"
+    src="{% static 'users/js/login.js' %}"
+  ></script>
   <body>
     <h2>Login</h2>
 
     <div class="container">
-      <form method="post" action="{% url 'users:login' %}">
+      <form
+        method="post"
+        action="{% url 'users:login' %} "
+        onsubmit="return canSumbit()"
+      >
         {% csrf_token %}
 
         <div>
