@@ -1,4 +1,5 @@
 function canSumbit() {
+  console.log("hihihihihi");
   var canSumbit = true;
 
   var $email = $("#email_input");

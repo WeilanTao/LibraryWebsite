@@ -1,6 +1,4 @@
-{% extends 'base.html'%} {% load static %} {% block ext_js%}
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{% extends 'base.html'%} {% load static %} {% block scripts%} {{ block.super }}
 <script type="text/javascript" src="{% static 'users/js/login.js' %}"></script>
 
 {% endblock %} {% block content %}
