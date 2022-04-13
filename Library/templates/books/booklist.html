@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BookList</title>
-  </head>
+{% extends 'base.html'%} 
+{% load static %}
 
-  {% load static %}
+{% block ext_js%}
+ 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script
     type="text/javascript"
     src="{% static 'books/js/books.js' %}"
   ></script>
 
-  <body>
+ {% endblock %}
+
+
+{% block content %}
+ 
+ 
+
+  <div>
     <h1>{{author_name}} Book List</h1>
     <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
 
@@ -33,4 +35,6 @@
       {% endfor %}
     </ul>
   </body>
-</html>
+</div>
+
+{% endblock %}

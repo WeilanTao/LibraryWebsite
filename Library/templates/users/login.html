@@ -1,53 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-  </head>
+{% extends 'base.html'%} {% load static %} {% block ext_js%}
 
-  {% load static %}
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script
-    type="text/javascript"
-    src="{% static 'users/js/login.js' %}"
-  ></script>
-  <body>
-    <h2>Login</h2>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'users/js/login.js' %}"></script>
 
-    <div class="container">
-      <form
-        method="post"
-        action="{% url 'users:login' %} "
-        onsubmit="return canSumbit()"
-      >
-        {% csrf_token %}
+{% endblock %} {% block content %}
+<div>
+  <h2>Login</h2>
 
-        <div>
-          <label for="email_input" class="form-label">Email address</label>
-          <input
-            name="email"
-            type="text"
-            class="form-control"
-            id="email_input"
-            placeholder="Please enter your email"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="password_input" class="form-label">Password</label>
-          <input
-            name="password"
-            class="form-control"
-            id="password_input"
-            placeholder="Please enter your password"
-          />
-        </div>
+  <div class="container">
+    <form
+      method="post"
+      action="{% url 'users:login' %} "
+      onsubmit="return canSumbit()"
+    >
+      {% csrf_token %}
 
-        <button type="submit" value="Submit" class="btn btn-primary">
-          Submit
-        </button>
-      </form>
-    </div>
-  </body>
-</html>
+      <div>
+        <label for="email_input" class="form-label">Email address</label>
+        <input
+          name="email"
+          type="text"
+          class="form-control"
+          id="email_input"
+          placeholder="Please enter your email"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password_input" class="form-label">Password</label>
+        <input
+          name="password"
+          class="form-control"
+          id="password_input"
+          placeholder="Please enter your password"
+        />
+      </div>
+
+      <button type="submit" value="Submit" class="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
