@@ -5,7 +5,7 @@ import sys
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from users.models import Users, UserToBookList
-from django.urls import reverse
+from django.urls import reverse, resolve
 from django.contrib.auth.hashers import make_password, check_password
 
 sys.path.append("../Library")
@@ -16,9 +16,7 @@ import constant
 ## The BookList System
 def createBookList(request):
     user_id = request.session.get("user_id")
-
     data = {"status": 403, "msg": "user not logged in "}
-
     if user_id:
 
         booklist_title = request.GET.get("booklist_title")
@@ -87,11 +85,25 @@ def login(request):
         if users.exists():
             user = users.first()
             if check_password(password, user.password):
+
                 request.session["user_id"] = user.id
+
+                if user.is_first_login == True:
+                    # create the favortiate list for the user
+                    usertobooklist = UserToBookList()
+                    usertobooklist.user_id = user.id
+                    usertobooklist.booklist_title = "favorite"
+                    usertobooklist.save()
+
+                    # change is_first_login to false
+                    user.is_first_login = False
+                    user.save()
+
                 return redirect(reverse("users:mine"))
             else:
-                return redirect(reverse("users:login"))
 
+                return redirect(reverse("users:login"))
+        print("user not exists")
         return redirect(reverse("users:login"))
 
 

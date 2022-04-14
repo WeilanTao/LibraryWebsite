@@ -10,6 +10,7 @@ class Users(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
+    is_first_login = models.BooleanField(default=True)
     is_delete = models.BooleanField(default=False)
 
 

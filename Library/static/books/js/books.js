@@ -33,6 +33,8 @@ function Add_to_List() {
               window.location.href = url;
             })
             .modal("hide");
+        } else {
+          console.log("book list has been created");
         }
       }
     );
