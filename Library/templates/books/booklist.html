@@ -1,39 +1,62 @@
-{% extends 'base.html'%} 
-{% load static %}
+{% extends 'base.html'%} {% load static %} {% block scripts%} {{ block.super }}
+<script type="text/javascript" src="{% static 'books/js/books.js' %}"></script>
 
-{% block scripts%}
-{{ block.super }}
-  <script
-    type="text/javascript"
-    src="{% static 'books/js/books.js' %}"
-  ></script>
+{% endblock %} {% block content %}
 
- {% endblock %}
+<div>
+  <h1>{{author_name}} Book List</h1>
+  <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
 
+  <ul>
+    {%for book in books%}
+    <li>
+      <a
+        id="book_name"
+        href="{% url 'books:get_chapters' author_tag book.book_tag %}"
+        >{{book.book_name}}
+      </a>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-target="#exampleModal"
+        data-bs-whatever="{{book.book_name}}"
+        onClick="return Add_to_List('{{book.book_name}}')"
+      >
+        Add to List
+      </button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
-{% block content %}
- 
- 
-
-  <div>
-    <h1>{{author_name}} Book List</h1>
-    <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
-
-    <ul>
-      {%for book in books%}
-      <li>
-        <a
-          id="book_name"
-          href="{% url 'books:get_chapters' author_tag book.book_tag %}"
-          >{{book.book_name}}
-        </a>
-        <button onClick="return Add_to_List('{{book.book_name}}')">
-          Add to List
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Done
         </button>
-      </li>
-      {% endfor %}
-    </ul>
-  </body>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
