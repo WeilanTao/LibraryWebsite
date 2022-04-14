@@ -73,5 +73,9 @@ function canSumbit() {
     canSumbit = false;
   }
 
+//TODO: To add a favoruite folder for user when registration
+  if(canSumbit===true){
+
+  }
   return canSumbit;
 }

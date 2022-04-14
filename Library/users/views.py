@@ -1,9 +1,10 @@
 import imp
+from multiprocessing import context
 from re import U
 import sys
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from users.models import Users
+from users.models import Users, UserToBookList
 from django.urls import reverse
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -14,11 +15,27 @@ import constant
 # Create your views here.
 ## The BookList System
 def createBookList(request):
-    return HttpResponse("create book list")
+    user_id = request.session.get("user_id")
+
+    data = {"status": 403, "msg": "user not logged in "}
+
+    if user_id:
+
+        booklist_title = request.GET.get("booklist_title")
+
+        usertobooklist = UserToBookList()
+        usertobooklist.user_id = user_id
+        usertobooklist.booklist_title = booklist_title
+
+        usertobooklist.save()
+
+        data["usertobooklist"] = usertobooklist
+
+    return JsonResponse(data=data)
 
 
 def getUserBookLists(request):
-    return HttpResponse("get all book lists for a user")
+    return HttpResponse("get user book lists")
 
 
 def getBookList(request):

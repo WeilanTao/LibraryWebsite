@@ -1,4 +1,10 @@
 {% extends 'base.html'%} {% load static %} {% block scripts%} {{ block.super }}
+<script>
+{% comment %} function url_gen(){
+  return "{% url 'users:login'%}"
+} {% endcomment %}
+</script>
+
 <script type="text/javascript" src="{% static 'books/js/books.js' %}"></script>
 
 {% endblock %} {% block content %}
@@ -20,7 +26,7 @@
         class="btn btn-primary"
         data-bs-target="#exampleModal"
         data-bs-whatever="{{book.book_name}}"
-        onClick="return Add_to_List('{{book.book_name}}')"
+        onClick="return Add_to_List_Modal('{{book.book_name}}')"
       >
         Add to List
       </button>
@@ -50,6 +56,16 @@
         ></button>
       </div>
       <div class="modal-body"></div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick="return Add_to_List()"
+        >
+          +
+        </button>
+        <input name="booklist_title" id="booklist_title" placeholder="New List Title"></input>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
           Done

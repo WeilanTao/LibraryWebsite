@@ -14,9 +14,7 @@ class Users(models.Model):
 
 
 class UserToBookList(models.Model):
-    data_id = models.IntegerField(primary_key=True)
     user_id = models.IntegerField()
-    booklist_id = models.IntegerField()
     booklist_title = models.CharField(max_length=255)
 
 
