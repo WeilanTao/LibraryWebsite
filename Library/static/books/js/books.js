@@ -1,12 +1,14 @@
 const { list } = require("tar");
 
-function Add_to_List_Modal(book_name) {
+function Add_to_List_Modal(book_name, book_tag) {
   // console.log(book_name);
-
+  console.log(book_name, book_tag);
   $("#exampleModal").on("show.bs.modal", function (event) {
     // Update the modal's content.
     var modalTitle = exampleModal.querySelector(".modal-title");
     modalTitle.textContent = book_name;
+
+    // If user not signed in then ...empty... eyyyy
 
     $.get("/users/getUserBookLists/", function (data) {
       if (data["status"] === 200) {
@@ -20,6 +22,9 @@ function Add_to_List_Modal(book_name) {
           booklist_li.innerHTML =
             booklist_li.innerHTML +
             "<button type='button' onclick=\"addBook('" +
+            booklistobj["booklist_id"] +
+            ":" +
+            book_tag +
             "')\" >" +
             booklistobj["booklist_title"] +
             "</button>";
@@ -32,8 +37,21 @@ function Add_to_List_Modal(book_name) {
   $("#exampleModal").modal("show");
 }
 
-function addBook() {
-  console.log("add book...");
+function addBook(inputstr) {
+  var book_list_id = inputstr.split(":")[0];
+  var book_tag = inputstr.split(":")[1];
+  console.log(book_list_id, book_tag);
+
+  $.getJSON(
+    "/users/addBookToList/",
+    { book_list_id: book_list_id, book_tag: book_tag },
+    function (data) {
+      console.log(data);
+      if (data["status"] === 200) {
+        console.log("book add to book list ");
+      }
+    }
+  );
 }
 function Add_to_List() {
   console.log("hihihi");
@@ -61,15 +79,20 @@ function Add_to_List() {
             .modal("hide");
         } else {
           console.log("book list has been created");
+          var booklist_id = data["booklist_id"];
 
-          const booklist_li = document.createElement("li");
-          booklist_li.innerHTML =
-            booklist_li.innerHTML +
-            "<button type='button' onclick=\"addBook('" +
-            "')\" >" +
-            booklist_title +
-            "</button>";
-          document.getElementById("book_list").appendChild(booklist_li);
+          // const booklist_li = document.createElement("li");
+          // booklist_li.innerHTML =
+          //   booklist_li.innerHTML +
+          //   "<button type='button' onclick=\"addBook('" +
+          //   booklist_id +
+          //   ":" +
+          //   book_tag +
+          //   "')\" >" +
+          //   bbooklist_title +
+          //   "</button>";
+
+          // document.getElementById("book_list").appendChild(booklist_li);
         }
       }
     );

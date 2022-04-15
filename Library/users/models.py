@@ -15,10 +15,11 @@ class Users(models.Model):
 
 
 class UserToBookList(models.Model):
+    booklist_id = models.BigAutoField(auto_created=True, primary_key=True)
     user_id = models.IntegerField()
     booklist_title = models.CharField(max_length=255)
 
 
 class BookList(models.Model):
-    booklist_id = models.ForeignKey(UserToBookList, on_delete=models.CASCADE)
-    book_id = models.ForeignKey(books.models.Book, on_delete=models.CASCADE)
+    booklist_id = models.IntegerField()
+    book_tag = models.CharField(max_length=255)

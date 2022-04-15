@@ -26,7 +26,7 @@
         class="btn btn-primary"
         data-bs-target="#exampleModal"
         data-bs-whatever="{{book.book_name}}"
-        onClick="return Add_to_List_Modal('{{book.book_name}}')"
+        onClick="return Add_to_List_Modal('{{book.book_name}}','{{book.book_tag}}')"
       >
         Add to List
       </button>
@@ -48,6 +48,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <h5 hidden class ="booktag" name="booktag" id = "booktag"> book tag  </h5>
         <button
           type="button"
           class="btn-close"
