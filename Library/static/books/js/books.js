@@ -17,7 +17,13 @@ function Add_to_List_Modal(book_name) {
           console.log(booklistobj["booklist_title"]);
 
           const booklist_li = document.createElement("li");
-          booklist_li.innerText = booklistobj["booklist_title"];
+          booklist_li.innerHTML =
+            booklist_li.innerHTML +
+            "<button type='button' onclick=\"addBook('" +
+            "')\" >" +
+            booklistobj["booklist_title"] +
+            "</button>";
+
           document.getElementById("book_list").appendChild(booklist_li);
         }
       }
@@ -26,6 +32,9 @@ function Add_to_List_Modal(book_name) {
   $("#exampleModal").modal("show");
 }
 
+function addBook() {
+  console.log("add book...");
+}
 function Add_to_List() {
   console.log("hihihi");
 
@@ -52,9 +61,14 @@ function Add_to_List() {
             .modal("hide");
         } else {
           console.log("book list has been created");
-          
+
           const booklist_li = document.createElement("li");
-          booklist_li.innerText = booklist_title;
+          booklist_li.innerHTML =
+            booklist_li.innerHTML +
+            "<button type='button' onclick=\"addBook('" +
+            "')\" >" +
+            booklist_title +
+            "</button>";
           document.getElementById("book_list").appendChild(booklist_li);
         }
       }
