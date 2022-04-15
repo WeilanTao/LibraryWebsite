@@ -14,7 +14,7 @@ function Add_to_List_Modal(book_name, book_tag) {
 
     $.get("/users/getUserBookLists/", function (data) {
       if (data["status"] === 200) {
-        console.log(data);
+        // console.log(data);
         document.getElementById("book_list").innerHTML = "";
         for (let d in data.userbooklist) {
           booklistobj = data.userbooklist[d];

@@ -62,7 +62,13 @@ def addBookToList(request):
 
 
 def getBookList(request):
-    return HttpResponse("get all books for a book List")
+    booklist_id = request.GET.get("booklist_id")
+    books = list(BookList.objects.filter(booklist_id=booklist_id).values())
+
+    data = {}
+
+    data["books"] = books
+    return JsonResponse(data=data)
 
 
 def deleteBookList(request):
@@ -89,7 +95,11 @@ def mine(request):
     data = {}
     if user_id:
         user = Users.objects.get(id=user_id)
+        userbooklists = UserToBookList.objects.filter(user_id=user_id).values()
+
         data["username"] = user.name
+        data["booklists"] = userbooklists
+
         return render(request, "users/usercenter.html", context=data)
 
     return redirect(reverse("users:login"))
