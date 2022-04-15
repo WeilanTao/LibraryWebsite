@@ -14,7 +14,7 @@
   <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
 
   <ul>
-    {%for book in books%}
+    {% for book in books %}
     <li>
       <a
         id="book_name"
@@ -55,7 +55,10 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body"></div>
+      <div class="modal-body">
+      <ul id="book_list">
+      </ul>
+      </div>
       <div>
         <button
           type="button"

@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from users.models import Users, UserToBookList
 from django.urls import reverse, resolve
 from django.contrib.auth.hashers import make_password, check_password
+from django.core import serializers
+
 
 sys.path.append("../Library")
 import constant
@@ -26,15 +28,28 @@ def createBookList(request):
         usertobooklist.booklist_title = booklist_title
 
         usertobooklist.save()
-
-        data["usertobooklist"] = usertobooklist
+        data["status"] = 200
+        data["msg"] = "book list created"
 
     return JsonResponse(data=data)
 
 
 def getUserBookLists(request):
-    return HttpResponse("get user book lists")
+    user_id = request.session.get("user_id")
+    data = {"status": 403, "msg": "user not logged in "}
+    if user_id:
+        userbooklist = UserToBookList.objects.filter(user_id=user_id).values()
 
+        # userbooklist_json = serializers.serialize("json", userbooklist)
+        data["userbooklist"] = list(userbooklist)
+        data["status"] = 200
+        data["msg"] = "user books get"
+
+    return JsonResponse(data=data)
+
+
+def addBookToList(request):
+    return HttpResponse("add book to booklist")
 
 def getBookList(request):
     return HttpResponse("get all books for a book List")
@@ -42,11 +57,6 @@ def getBookList(request):
 
 def deleteBookList(request):
     return HttpResponse("delete book list")
-
-
-def addBookToList(request):
-    return HttpResponse("add book to booklist")
-
 
 def deleteBookFromList(request):
     return HttpResponse("delete book from book list")
