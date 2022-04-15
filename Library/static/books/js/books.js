@@ -2,7 +2,7 @@ const { list } = require("tar");
 
 function Add_to_List_Modal(book_name, book_tag) {
   // console.log(book_name);
-  console.log(book_name, book_tag);
+  // console.log(book_name, book_tag);
   $("#exampleModal").on("show.bs.modal", function (event) {
     // Update the modal's content.
     var modalTitle = exampleModal.querySelector(".modal-title");
@@ -42,7 +42,7 @@ function Add_to_List_Modal(book_name, book_tag) {
 function addBook(inputstr) {
   var book_list_id = inputstr.split(":")[0];
   var book_tag = inputstr.split(":")[1];
-  console.log(book_list_id, book_tag);
+  // console.log(book_list_id, book_tag);
 
   $.getJSON(
     "/users/addBookToList/",
