@@ -18,7 +18,7 @@ function Add_to_List_Modal(book_name, book_tag) {
         document.getElementById("book_list").innerHTML = "";
         for (let d in data.userbooklist) {
           booklistobj = data.userbooklist[d];
-          console.log(booklistobj["booklist_title"]);
+          // console.log(booklistobj["booklist_title"]);
 
           const booklist_li = document.createElement("li");
           booklist_li.innerHTML =
@@ -67,6 +67,7 @@ function Add_to_List() {
       function (data) {
         console.log(data);
         if (data["status"] === 403) {
+          // if user not logged in, redirect to the log in page
           $("#exampleModal")
             .on("hidden.bs.modal", function () {
               url =
@@ -83,6 +84,7 @@ function Add_to_List() {
           console.log("book list has been created");
           var booklist_id = data["booklist_id"];
 
+          //if user logged in, and the new booklist has been created successfully, we will add a new button for this list to the above booklist list, and enable the button for adding new books
           const booklist_li = document.createElement("li");
           booklist_li.innerHTML =
             booklist_li.innerHTML +
