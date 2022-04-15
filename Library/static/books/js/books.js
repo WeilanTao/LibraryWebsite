@@ -7,6 +7,8 @@ function Add_to_List_Modal(book_name, book_tag) {
     // Update the modal's content.
     var modalTitle = exampleModal.querySelector(".modal-title");
     modalTitle.textContent = book_name;
+    var modalBookTag = exampleModal.querySelector(".modal-book-tag");
+    modalBookTag.textContent = book_tag;
 
     // If user not signed in then ...empty... eyyyy
 
@@ -54,9 +56,9 @@ function addBook(inputstr) {
   );
 }
 function Add_to_List() {
-  console.log("hihihi");
-
   var booklist_title = $("#booklist_title").val().trim();
+  var book_tag = document.getElementById("modal-book-tag").textContent;
+  // console.log(book_tag);
 
   if (booklist_title.length) {
     $.getJSON(
@@ -81,18 +83,18 @@ function Add_to_List() {
           console.log("book list has been created");
           var booklist_id = data["booklist_id"];
 
-          // const booklist_li = document.createElement("li");
-          // booklist_li.innerHTML =
-          //   booklist_li.innerHTML +
-          //   "<button type='button' onclick=\"addBook('" +
-          //   booklist_id +
-          //   ":" +
-          //   book_tag +
-          //   "')\" >" +
-          //   bbooklist_title +
-          //   "</button>";
+          const booklist_li = document.createElement("li");
+          booklist_li.innerHTML =
+            booklist_li.innerHTML +
+            "<button type='button' onclick=\"addBook('" +
+            booklist_id +
+            ":" +
+            book_tag +
+            "')\" >" +
+            booklist_title +
+            "</button>";
 
-          // document.getElementById("book_list").appendChild(booklist_li);
+          document.getElementById("book_list").appendChild(booklist_li);
         }
       }
     );
