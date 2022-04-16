@@ -68,7 +68,7 @@ function goToBook(inputstr) {
 function deleteBookFromList(inputstr) {
   const booklist_id = inputstr.split(":")[1];
   const book_tag = inputstr.split(":")[0];
-  console.log("delete", book_tag, booklist_id);
+  // console.log("delete", book_tag, booklist_id);
 
   $.getJSON(
     "/users/deleteBookFromList",
@@ -76,6 +76,23 @@ function deleteBookFromList(inputstr) {
     function (data) {
       //refersh the booklist page after successful deletion
       getBooks(booklist_id);
+    }
+  );
+}
+
+function deleteBookList(booklist_id) {
+  console.log(booklist_id);
+
+  $.getJSON(
+    "/users/deleteBookList",
+    { booklist_id: booklist_id },
+    function (data) {
+      // console.log(data);
+
+      //refersh the booklist page after successful deletion
+      $("#booklist_list").load(window.location.href + " #booklist_list");
+      $("#books_li").load(window.location.href + " #books_li");
+      // window.location.reload();
     }
   );
 }
