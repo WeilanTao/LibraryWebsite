@@ -1,16 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mine</title>
-  </head>
-  <body>
+{% extends 'base.html'%}
+
+
+{% load static %} {% block scripts%} {{ block.super }}
+<script
+  type="text/javascript"
+  src="{% static 'users/js/usercenter.js' %}"
+></script>
+
+{% endblock %}
+
+{% block content %}
+  <div>
     <div>Hello {{username}}</div>
+
+    <div id="booklist_list">
+      <ul>
+      {% for booklist in booklists%}
+        <li>
+          <button onClick="return getBooks({{booklist.booklist_id}})">{{booklist.booklist_title}}</button>
+          <button onClick="return deleteBookList({{booklist.booklist_id}})"> Delete </button>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+
+    <div id ="books">
+      <ul id = "books_li">
+
+      </ul>
+    </div>
+
 
     <p>
       <a href="{% url "users:logout" %}">Log out</a>
     </p>
-  </body>
-</html>
+  </div>
+
+{% endblock %}

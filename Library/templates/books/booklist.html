@@ -1,23 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BookList</title>
-  </head>
-  <body>
-    <h1>{{author_name}} Book List</h1>
-    <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
+{% extends 'base.html'%} {% load static %} {% block scripts%} {{ block.super }}
+<script>
+{% comment %} function url_gen(){
+  return "{% url 'users:login'%}"
+} {% endcomment %}
+</script>
 
-    <ul>
-      {%for book in books%}
-      <li>
-        <a href="{% url 'books:get_chapters' author_tag book.book_tag %}"
-          >{{book.book_name}}
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+<script type="text/javascript" src="{% static 'books/js/books.js' %}"></script>
+
+{% endblock %} {% block content %}
+
+<div>
+  <h1>{{author_name}} Book List</h1>
+  <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
+
+  <ul>
+    {% for book in books %}
+    <li>
+      <a
+        id="book_name"
+        href="{% url 'books:get_chapters' author_tag book.book_tag %}"
+        >{{book.book_name}}
+      </a>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-target="#exampleModal"
+        data-bs-whatever="{{book.book_name}}"
+        onClick="return Add_to_List_Modal('{{book.book_name}}','{{book.book_tag}}')"
+      >
+        Add to List
+      </button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <h5 hidden class ="modal-book-tag" name="modal-book-tag" id = "modal-book-tag"> book tag  </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+      <ul id="book_list">
+      </ul>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick="return Add_to_List()"
+        >
+          +
+        </button>
+        <input name="booklist_title" id="booklist_title" placeholder="New List Title"></input>
+         <div id="add_booklist_info"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
