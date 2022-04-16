@@ -50,7 +50,18 @@ function getBookInfo(book_tag) {
 function goToBook(inputstr) {
   const author_tag = inputstr.split(":")[0];
   const book_tag = inputstr.split(":")[1];
-  console.log(author_tag, book_tag);
+  // console.log(author_tag, book_tag);
+  url =
+    "http://" +
+    window.location.hostname +
+    ":" +
+    window.location.port +
+    "/" +
+    author_tag +
+    "/" +
+    book_tag;
+  console.log(url);
+  window.location.href = url;
 }
 
 function deleteBookFromList(book_tag) {

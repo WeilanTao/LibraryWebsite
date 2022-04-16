@@ -24,6 +24,7 @@ def get_books(request, author_tag):
 
 
 def get_chapters(request, author_tag, book_tag):
+    print("hihihihihihihihihihihi")
     chapters = (
         Chapter.objects.filter(book_tag=book_tag)
         .defer("chapter_content")
@@ -90,7 +91,6 @@ def get_book_name(book_tag):
 
 def getBookInfo(request):
     book_tag = request.GET.get("book_tag")
-    print(book_tag)
     book = list(Book.objects.filter(book_tag=book_tag).values())
     data = {}
     data["book"] = book
