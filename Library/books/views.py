@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from books.models import Author, Book, Chapter
 import sys
 import os
@@ -13,6 +13,7 @@ def get_authors(request):
 
 
 def get_books(request, author_tag):
+
     books = Book.objects.filter(author_tag=author_tag)
 
     author_name = get_author_name(author_tag)
@@ -85,3 +86,12 @@ def get_author_name(author_tag):
 def get_book_name(book_tag):
     res_name = Book.objects.filter(book_tag=book_tag).only("book_name").first()
     return res_name.book_name
+
+
+def getBookInfo(request):
+    book_tag = request.GET.get("book_tag")
+    print(book_tag)
+    book = list(Book.objects.filter(book_tag=book_tag).values())
+    data = {}
+    data["book"] = book
+    return JsonResponse(data=data)
