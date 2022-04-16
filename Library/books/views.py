@@ -1,90 +1,97 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from books.models import Author, Book, Chapter
-import sys 
+import sys
 import os
 
 # Create your views here.
 def get_authors(request):
-    authors = Author.objects.order_by('author_name')
+    authors = Author.objects.order_by("author_name")
+    data = {"authors": authors}
 
-    data ={
-        "authors": authors
-    }
+    return render(request, "books/authorslist.html", context=data)
 
-    return render(request, 'authorslist.html', context = data)
 
 def get_books(request, author_tag):
-    books = Book.objects.filter(author_tag = author_tag)
+
+    books = Book.objects.filter(author_tag=author_tag)
 
     author_name = get_author_name(author_tag)
 
-    data={
-        "books":books,
-        "author_tag" : author_tag,
-        "author_name" : author_name
-    }
+    data = {"books": books, "author_tag": author_tag, "author_name": author_name}
 
-    return render(request, 'booklist.html', context=data)       
+    return render(request, "books/booklist.html", context=data)
+
 
 def get_chapters(request, author_tag, book_tag):
-    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
+    print("hihihihihihihihihihihi")
+    chapters = (
+        Chapter.objects.filter(book_tag=book_tag)
+        .defer("chapter_content")
+        .order_by("chapter_index")
+    )
 
     book_name = get_book_name(book_tag)
 
-    data = {
-        "chapters":chapters,
-        "author_tag":author_tag,
-        "book_name":book_name
-    }
+    data = {"chapters": chapters, "author_tag": author_tag, "book_name": book_name}
 
-    return render(request, 'chapterlist.html', context=data)
+    return render(request, "books/chapterlist.html", context=data)
+
 
 def get_chapter_content(request, author_tag, book_tag, chapter_id):
 
-    chapter = Chapter.objects.filter(id = chapter_id).first()
+    chapter = Chapter.objects.filter(id=chapter_id).first()
     book_name = get_book_name(book_tag)
-    data ={
-        "chapter":chapter,
-        "author_tag": author_tag,
-        "book_name":book_name
-    }
+    data = {"chapter": chapter, "author_tag": author_tag, "book_name": book_name}
 
-    return render(request, 'chaptercontent.html', context=data)
+    return render(request, "books/chaptercontent.html", context=data)
+
 
 def get_next_previous(request, author_tag, book_tag, chapter_id, next_previous):
-    chapters = Chapter.objects.filter(book_tag = book_tag).defer('chapter_content').order_by('chapter_index')
+    chapters = (
+        Chapter.objects.filter(book_tag=book_tag)
+        .defer("chapter_content")
+        .order_by("chapter_index")
+    )
 
     # print(type(next_previous), type(0))
-    if(next_previous == "0"):
+    if next_previous == "0":
         chapters = chapters.reverse()
-    
+
     chapterslist = list(chapters)
 
     isFound = 0
- 
+
     book_name = get_book_name(book_tag)
 
-    for chapter in chapterslist:        
+    for chapter in chapterslist:
         if isFound == 1:
             data = {
-                "chapter":chapter,
+                "chapter": chapter,
                 "author_tag": author_tag,
-                "book_name":book_name
+                "book_name": book_name,
             }
-            return render(request, 'chaptercontent.html', context=data)
+            return render(request, "books/chaptercontent.html", context=data)
         if str(chapter.id) == chapter_id:
             print("Found")
             isFound = 1
 
     return HttpResponse("hELLO")
-  
 
-def get_author_name (author_tag):
-    res_name = Author.objects.filter(author_tag = author_tag).only('author_name').first()
+
+def get_author_name(author_tag):
+    res_name = Author.objects.filter(author_tag=author_tag).only("author_name").first()
     return res_name.author_name
 
 
-def get_book_name (book_tag):
-    res_name = Book.objects.filter(book_tag = book_tag).only('book_name').first()
+def get_book_name(book_tag):
+    res_name = Book.objects.filter(book_tag=book_tag).only("book_name").first()
     return res_name.book_name
+
+
+def getBookInfo(request):
+    book_tag = request.GET.get("book_tag")
+    book = list(Book.objects.filter(book_tag=book_tag).values())
+    data = {}
+    data["book"] = book
+    return JsonResponse(data=data)

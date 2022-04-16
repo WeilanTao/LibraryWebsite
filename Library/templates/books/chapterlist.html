@@ -1,0 +1,19 @@
+{% extends 'base.html'%} {% block content %}
+<div>
+  <h1>{{book_name}} Chapter List</h1>
+  <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
+  <a href="{% url 'books:get_books' author_tag%}"> Back to Book List</a>
+
+  <ul>
+    {% for chapter in chapters%}
+    <li>
+      <a
+        href="{% url 'books:get_content' author_tag chapter.book_tag chapter.id%}"
+      >
+        {{chapter.chapter_name}}
+      </a>
+    </li>
+    {% endfor%}
+  </ul>
+</div>
+{% endblock %}

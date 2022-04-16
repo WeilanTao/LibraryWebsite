@@ -1,0 +1,20 @@
+{% extends 'base.html'%} {% block content %}
+<div>
+  <h1>{{book_name}} {{chapter.chapter_name}}</h1>
+  <a href="{% url 'books:get_chapters' author_tag chapter.book_tag%}">
+    Back to Chapter List
+  </a>
+
+  <a
+    href="{% url 'books:next_previous' author_tag chapter.book_tag chapter.id 1%}"
+    >Next Chapter</a
+  >
+
+  <a
+    href="{% url 'books:next_previous' author_tag chapter.book_tag chapter.id 0%}"
+    >Previous Chapter</a
+  >
+
+  <p>{{chapter.chapter_content}}</p>
+</div>
+{% endblock %}

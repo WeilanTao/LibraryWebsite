@@ -1,0 +1,43 @@
+{% extends 'base.html'%} {% load static %} {% block scripts%} {{ block.super }}
+<script type="text/javascript" src="{% static 'users/js/login.js' %}"></script>
+
+{% endblock %} {% block content %}
+<div>
+  <h2>Login</h2>
+
+  <div class="container">
+    <form
+      method="post"
+      action="{% url 'users:login' %} "
+      onsubmit="return canSumbit()"
+    >
+      {% csrf_token %}
+
+      <div>
+        <label for="email_input" class="form-label">Email address</label>
+        <input
+          name="email"
+          type="text"
+          class="form-control"
+          id="email_input"
+          placeholder="Please enter your email"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password_input" class="form-label">Password</label>
+        <input
+          name="password"
+          class="form-control"
+          id="password_input"
+          placeholder="Please enter your password"
+        />
+      </div>
+
+      <button type="submit" value="Submit" class="btn btn-primary">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
