@@ -27,7 +27,9 @@ function getBooks(booklist_id) {
             book.book_name +
             "</button> <button type = 'button' onclick =\"deleteBookFromList('" +
             book.book_tag +
-            "')\" >  Delete Book</button>";
+            ":" +
+            booklist_id +
+            "')\" >Remove</button>";
 
           document.getElementById("books_li").appendChild(book_li);
         });
@@ -50,7 +52,6 @@ function getBookInfo(book_tag) {
 function goToBook(inputstr) {
   const author_tag = inputstr.split(":")[0];
   const book_tag = inputstr.split(":")[1];
-  // console.log(author_tag, book_tag);
   url =
     "http://" +
     window.location.hostname +
@@ -64,6 +65,17 @@ function goToBook(inputstr) {
   window.location.href = url;
 }
 
-function deleteBookFromList(book_tag) {
-  console.log("delete", book_tag);
+function deleteBookFromList(inputstr) {
+  const booklist_id = inputstr.split(":")[1];
+  const book_tag = inputstr.split(":")[0];
+  console.log("delete", book_tag, booklist_id);
+
+  $.getJSON(
+    "/users/deleteBookFromList",
+    { book_tag: book_tag, booklist_id: booklist_id },
+    function (data) {
+      //refersh the booklist page after successful deletion
+      getBooks(booklist_id);
+    }
+  );
 }

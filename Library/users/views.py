@@ -76,7 +76,14 @@ def deleteBookList(request):
 
 
 def deleteBookFromList(request):
-    return HttpResponse("delete book from book list")
+    book_tag = request.GET.get("book_tag")
+    booklist_id = request.GET.get("booklist_id")
+
+    BookList.objects.filter(booklist_id=booklist_id, book_tag=book_tag).delete()
+
+    data = {"status": constant.HTTP_OK, "msg": "ok"}
+
+    return JsonResponse(data=data)
 
 
 ## The login System
