@@ -1,20 +1,23 @@
-{% extends 'base.html'%} {% load static %} {% block scripts%} {{ block.super }}
+{% extends 'base.html'%} {% load static %} {% block css %} {{ block.super }}
+
+<link rel="stylesheet" href="{% static 'users/css/login.css'%}" />
+{% endblock %} {% block scripts%} {{ block.super }}
 <script type="text/javascript" src="{% static 'users/js/login.js' %}"></script>
 
 {% endblock %} {% block content %}
 <div>
-  <h2>Login</h2>
+  <h1 class="title">Login</h1>
 
   <div class="container">
     <form
+      class="form-floating"
       method="post"
       action="{% url 'users:login' %} "
       onsubmit="return canSumbit()"
     >
       {% csrf_token %}
 
-      <div>
-        <label for="email_input" class="form-label">Email address</label>
+      <div class="form-floating mb-3">
         <input
           name="email"
           type="text"
@@ -22,18 +25,19 @@
           id="email_input"
           placeholder="Please enter your email"
         />
+        <label for="email_input" class="form-label">Email address</label>
       </div>
-      <div class="mb-3">
-        <label for="password_input" class="form-label">Password</label>
+      <div class="form-floating mb-3">
         <input
           name="password"
           class="form-control"
           id="password_input"
           placeholder="Please enter your password"
         />
+        <label for="password_input" class="form-label">Password</label>
       </div>
 
-      <button type="submit" value="Submit" class="btn btn-primary">
+      <button type="submit" value="Submit" class="btn btn-outline-dark btn-sm">
         Submit
       </button>
     </form>

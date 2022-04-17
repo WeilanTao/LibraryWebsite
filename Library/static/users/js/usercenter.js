@@ -19,13 +19,13 @@ function getBooks(booklist_id) {
 
           book_li.innerHTML =
             book_li.innerHTML +
-            "<button type='button' onclick=\"goToBook('" +
+            "<a type='button' onclick=\"goToBook('" +
             book.author_tag +
             ":" +
             book.book_tag +
             "')\" >" +
             book.book_name +
-            "</button> <button type = 'button' onclick =\"deleteBookFromList('" +
+            "</a> <button class='btn btn-outline-secondary btn-sm' type = 'button' onclick =\"deleteBookFromList('" +
             book.book_tag +
             ":" +
             booklist_id +

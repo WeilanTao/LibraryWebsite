@@ -1,38 +1,54 @@
-{% extends 'base.html'%} {% load static %} {% block scripts%} {{ block.super }}
-<script>
-{% comment %} function url_gen(){
-  return "{% url 'users:login'%}"
-} {% endcomment %}
-</script>
+{% extends 'base.html'%} {% load static %} 
+{% block css %} {{ block.super }}
+<link rel="stylesheet" href="{% static 'books/css/booklist.css'%}" />
+{% endblock %}
+
+{% block scripts%} {{ block.super }}
 
 <script type="text/javascript" src="{% static 'books/js/books.js' %}"></script>
 
 {% endblock %} {% block content %}
 
 <div>
-  <h1>{{author_name}} Book List</h1>
-  <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
-
-  <ul>
-    {% for book in books %}
-    <li>
-      <a
-        id="book_name"
-        href="{% url 'books:get_chapters' author_tag book.book_tag %}"
-        >{{book.book_name}}
-      </a>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-target="#exampleModal"
-        data-bs-whatever="{{book.book_name}}"
-        onClick="return Add_to_List_Modal('{{book.book_name}}','{{book.book_tag}}')"
-      >
-        Add to List
+  <div class="off_canvas">
+      <button  class="  menu_button" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+        
       </button>
-    </li>
-    {% endfor %}
-  </ul>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-body">
+          
+          <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
+        </div>
+      </div>
+
+  </div>
+  <h1 class="title">{{author_name}} Book List</h1>
+  <div class="bookslistdiv">
+    <ul >
+      {% for book in books %}
+      <li>
+      <div>
+        <a
+          id="book_name"
+          href="{% url 'books:get_chapters' author_tag book.book_tag %}"
+          >{{book.book_name}}
+        </a>
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="{{book.book_name}}"
+          onClick="return Add_to_List_Modal('{{book.book_name}}','{{book.book_tag}}')"
+        >
+          Add to List
+        </button> 
+      </div> 
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+ 
 </div>
 
 <!-- Modal -->
@@ -63,7 +79,7 @@
       <div>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-outline-dark btn-sm add_button"
           onClick="return Add_to_List()"
         >
           +
@@ -72,7 +88,7 @@
          <div id="add_booklist_info"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-outline-dark btn-sm" data-bs-dismiss="modal">
           Done
         </button>
       </div>

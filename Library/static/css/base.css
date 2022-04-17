@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-grow: 1;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* This is the area for all content plugins */
+.container {
+  width: 70%;
+  margin: 0 15% 0 15%;
+  height: 80%;
+  /* background-color: green; */
+}
+
+.navbar-brand {
+  margin: 0 auto;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  background-color: rgba(248, 249, 250, 255);
+  font-size: 13px;
+}

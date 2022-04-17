@@ -23,7 +23,7 @@ function Add_to_List_Modal(book_name, book_tag) {
           const booklist_li = document.createElement("li");
           booklist_li.innerHTML =
             booklist_li.innerHTML +
-            "<button type='button' onclick=\"addBook('" +
+            "<button  class='btn btn-outline-dark btn-sm' type='button' onclick=\"addBook('" +
             booklistobj["booklist_id"] +
             ":" +
             book_tag +
@@ -88,7 +88,7 @@ function Add_to_List() {
           const booklist_li = document.createElement("li");
           booklist_li.innerHTML =
             booklist_li.innerHTML +
-            "<button type='button' onclick=\"addBook('" +
+            "<button  class='btn btn-outline-dark btn-sm' type='button' onclick=\"addBook('" +
             booklist_id +
             ":" +
             book_tag +

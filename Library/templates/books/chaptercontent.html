@@ -1,20 +1,46 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%} {% load static %} {% block css %} {{ block.super }}
+
+<link rel="stylesheet" href="{% static 'books/css/chaptercontent.css'%}" />
+{% endblock %} {% block content %}
 <div>
-  <h1>{{book_name}} {{chapter.chapter_name}}</h1>
-  <a href="{% url 'books:get_chapters' author_tag chapter.book_tag%}">
+
+<div class="off_canvas">
+    <button
+      class="menu_button"
+      data-bs-toggle="offcanvas"
+      href="#offcanvasExample"
+      role="button"
+      aria-controls="offcanvasExample"
+    ></button>
+
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasExample"
+      aria-labelledby="offcanvasExampleLabel"
+    >
+      <div class="offcanvas-body">
+         <a href="{% url 'books:get_chapters' author_tag chapter.book_tag%}">
     Back to Chapter List
   </a>
-
-  <a
+        </br>
+        <a
     href="{% url 'books:next_previous' author_tag chapter.book_tag chapter.id 1%}"
     >Next Chapter</a
   >
+  </br>
 
   <a
     href="{% url 'books:next_previous' author_tag chapter.book_tag chapter.id 0%}"
     >Previous Chapter</a
   >
+      </div>
+    </div>
+  </div>
+  <h1 class="title">{{book_name}} {{chapter.chapter_name}}</h1>
+ 
 
-  <p>{{chapter.chapter_content}}</p>
+
+  <p class="chaptercontent">{{chapter.chapter_content}}</p>
 </div>
 {% endblock %}

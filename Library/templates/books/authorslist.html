@@ -1,11 +1,17 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%} 
+{% load static %} 
+{% block css %} {{ block.super }}
 
-<div>
-  <h1>Author List</h1>
+<link rel="stylesheet" href="{% static 'books/css/authorslist.css'%}" />
+{% endblock %} {% block content %}
+<div class="title">Author List</div>
+<div class="authorslist">
   <ul>
     {%for author in authors%}
     <li>
-      <a href="{% url 'books:get_books' author.author_tag %}"
+      <a
+        href="{% url 'books:get_books' author.author_tag %}"
+        class="authors_link"
         >{{author.author_name}}
       </a>
     </li>

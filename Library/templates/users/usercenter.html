@@ -1,39 +1,59 @@
-{% extends 'base.html'%}
+{% extends 'base.html'%} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'users/css/usercenter.css'%}" />
 
-
-{% load static %} {% block scripts%} {{ block.super }}
+{% endblock%} {% block scripts%} {{ block.super }}
 <script
   type="text/javascript"
   src="{% static 'users/js/usercenter.js' %}"
 ></script>
 
-{% endblock %}
+{% endblock %} {% block content %}
+<div>
+  <div class="off_canvas">
+    <button
+      class="menu_button"
+      data-bs-toggle="offcanvas"
+      href="#offcanvasExample"
+      role="button"
+      aria-controls="offcanvasExample"
+    ></button>
 
-{% block content %}
-  <div>
-    <div>Hello {{username}}</div>
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasExample"
+      aria-labelledby="offcanvasExampleLabel"
+    >
+      <div class="offcanvas-body">
+          <a href="{% url "users:logout" %}">Log out</a>
+      </div>
+    </div>
+  </div>
+  <div class="title">Hello {{username}}</div>
 
+  <div class="list_area">
     <div id="booklist_list">
       <ul>
-      {% for booklist in booklists%}
+        {% for booklist in booklists%}
         <li>
-          <button onClick="return getBooks({{booklist.booklist_id}})">{{booklist.booklist_title}}</button>
-          <button onClick="return deleteBookList({{booklist.booklist_id}})"> Delete </button>
+          <a onClick="return getBooks({{booklist.booklist_id}})"
+            >{{booklist.booklist_title}}</a
+          >
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            onClick="return deleteBookList({{booklist.booklist_id}})"
+          >
+            Delete
+          </button>
         </li>
-      {% endfor %}
+        {% endfor %}
       </ul>
     </div>
 
-    <div id ="books">
-      <ul id = "books_li">
-
-      </ul>
+    <div id="books_list_area">
+      <ul id="books_li"></ul>
     </div>
-
-
-    <p>
-      <a href="{% url "users:logout" %}">Log out</a>
-    </p>
   </div>
+</div>
 
 {% endblock %}

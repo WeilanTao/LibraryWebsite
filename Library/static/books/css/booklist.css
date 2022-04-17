@@ -1,0 +1,40 @@
+.title {
+  text-align: center;
+  padding-bottom: 1%;
+  font-weight: bold;
+}
+
+.bookslistdiv {
+  /* here we have to use vh... the percentage dosn't work; and i have to use max-height specifically */
+  max-height: 75vh;
+  margin: 0 auto;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.menu_button {
+  border: none;
+  color: white;
+  position: absolute;
+  right: 0px;
+  left: 80px;
+  z-index: 1001;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #000000;
+}
+
+.menu_button:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.offcanvas {
+  width: 200px;
+}
+
+.add_button {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
