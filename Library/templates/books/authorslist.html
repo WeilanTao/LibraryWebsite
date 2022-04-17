@@ -2,8 +2,8 @@
 
 <link rel="stylesheet" href="{% static 'books/css/authorslist.css'%}" />
 {% endblock %} {% block content %}
+<div class="title">Author List</div>
 <div class="authorslist">
-  <h1>Author List</h1>
   <ul>
     {%for author in authors%}
     <li>

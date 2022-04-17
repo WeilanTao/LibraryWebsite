@@ -14,7 +14,7 @@
 /* This is the area for all content plugins */
 .container {
   width: 70%;
-  margin: 1% 15% 1% 15%;
+  margin: 0 15% 0 15%;
   height: 80%;
   /* background-color: green; */
 }
