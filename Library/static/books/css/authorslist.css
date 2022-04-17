@@ -1,9 +1,11 @@
-.authors_li {
-  color: yellow;
+.authors_link {
+  color: black;
 }
 
 .authorslist {
-  background-color: red;
-  height: 100px;
+  /* background-color: red; */
+  height: 100%;
+  margin: 0 auto;
   overflow-y: auto;
+  text-align: center;
 }

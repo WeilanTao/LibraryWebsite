@@ -7,7 +7,9 @@
   <ul>
     {%for author in authors%}
     <li>
-      <a href="{% url 'books:get_books' author.author_tag %}" class="authors_li"
+      <a
+        href="{% url 'books:get_books' author.author_tag %}"
+        class="authors_link"
         >{{author.author_name}}
       </a>
     </li>

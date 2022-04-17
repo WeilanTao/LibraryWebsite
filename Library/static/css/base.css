@@ -10,8 +10,13 @@
   overflow: hidden;
   /* background-color: rgba(114, 175, 249, 0.275); */
 }
+
+/* This is the area for all content plugins */
 .container {
-  background-color: green;
+  width: 70%;
+  margin: 0 15% 3% 15%;
+  height: 80%;
+  /* background-color: green; */
 }
 
 .navbar-brand {
