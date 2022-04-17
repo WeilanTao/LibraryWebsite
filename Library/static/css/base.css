@@ -1,3 +1,20 @@
+.wrapper {
+  display: flex;
+  /* height: 100px; */
+  width: 80%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  flex: 1;
+  overflow: visible;
+  background-color: blue;
+}
 .container {
-  color: red;
+  background-color: green;
+  /* height: 100px; */
+}
+
+.navbar-brand {
+  margin: 0 auto;
 }
