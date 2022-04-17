@@ -1,0 +1,21 @@
+.title {
+  /* text-align: center; */
+  padding-bottom: 3%;
+  font-weight: bold;
+  margin-left: 25%;
+}
+
+.list_area {
+  width: 50%;
+  margin: 0 25%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
+.booklist_list {
+  grid-column: 0;
+}
+
+.books_list_area {
+  grid-column: 1;
+}
