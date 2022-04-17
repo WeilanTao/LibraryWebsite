@@ -4,8 +4,7 @@
   font-weight: bold;
 }
 
-.authorslist {
-  /* background-color: red; */
+.chapterlist {
   max-height: 75vh;
   margin: 0 auto;
   overflow-y: auto;

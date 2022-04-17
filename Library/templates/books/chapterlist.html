@@ -1,19 +1,24 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%} {% load static %} {% block css %} {{ block.super }}
+
+<link rel="stylesheet" href="{% static 'books/css/chapterlist.css'%}" />
+{% endblock %} {% block content %}
 <div>
-  <h1>{{book_name}} Chapter List</h1>
+  <h1 class="title">{{book_name}} Chapter List</h1>
   <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
   <a href="{% url 'books:get_books' author_tag%}"> Back to Book List</a>
 
-  <ul>
-    {% for chapter in chapters%}
-    <li>
-      <a
-        href="{% url 'books:get_content' author_tag chapter.book_tag chapter.id%}"
-      >
-        {{chapter.chapter_name}}
-      </a>
-    </li>
-    {% endfor%}
-  </ul>
+  <div class="chapterlist">
+    <ul>
+      {% for chapter in chapters%}
+      <li>
+        <a
+          href="{% url 'books:get_content' author_tag chapter.book_tag chapter.id%}"
+        >
+          {{chapter.chapter_name}}
+        </a>
+      </li>
+      {% endfor%}
+    </ul>
+  </div>
 </div>
 {% endblock %}
