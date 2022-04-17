@@ -1,6 +1,9 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%} {% load static %} {% block css %} {{ block.super }}
+
+<link rel="stylesheet" href="{% static 'books/css/chaptercontent.css'%}" />
+{% endblock %} {% block content %}
 <div>
-  <h1>{{book_name}} {{chapter.chapter_name}}</h1>
+  <h1 class="title">{{book_name}} {{chapter.chapter_name}}</h1>
   <a href="{% url 'books:get_chapters' author_tag chapter.book_tag%}">
     Back to Chapter List
   </a>
@@ -15,6 +18,6 @@
     >Previous Chapter</a
   >
 
-  <p>{{chapter.chapter_content}}</p>
+  <p class="chaptercontent">{{chapter.chapter_content}}</p>
 </div>
 {% endblock %}

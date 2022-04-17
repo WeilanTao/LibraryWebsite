@@ -1,0 +1,14 @@
+.title {
+  text-align: center;
+  padding-bottom: 1%;
+  font-weight: bold;
+}
+
+.chaptercontent {
+  /* background-color: red; */
+  max-height: 75vh;
+  margin: 0 auto;
+  overflow-y: auto;
+  text-align: center;
+  width: 60%;
+}
