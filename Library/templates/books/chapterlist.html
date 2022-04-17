@@ -3,9 +3,30 @@
 <link rel="stylesheet" href="{% static 'books/css/chapterlist.css'%}" />
 {% endblock %} {% block content %}
 <div>
+  <div class="off_canvas">
+    <button
+      class="menu_button"
+      data-bs-toggle="offcanvas"
+      href="#offcanvasExample"
+      role="button"
+      aria-controls="offcanvasExample"
+    ></button>
+
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasExample"
+      aria-labelledby="offcanvasExampleLabel"
+    >
+      <div class="offcanvas-body">
+        <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
+        </br>
+        <a href="{% url 'books:get_books' author_tag%}"> Back to Book List</a>
+      </div>
+    </div>
+  </div>
+
   <h1 class="title">{{book_name}} Chapter List</h1>
-  <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
-  <a href="{% url 'books:get_books' author_tag%}"> Back to Book List</a>
 
   <div class="chapterlist">
     <ul>
