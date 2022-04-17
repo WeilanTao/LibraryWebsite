@@ -1,20 +1,25 @@
 .wrapper {
   display: flex;
-  /* height: 100px; */
-  width: 80%;
+  height: 100vh;
+
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   flex-grow: 1;
   flex: 1;
-  overflow: visible;
-  background-color: blue;
+  overflow: hidden;
+  /* background-color: rgba(114, 175, 249, 0.275); */
 }
 .container {
   background-color: green;
-  /* height: 100px; */
 }
 
 .navbar-brand {
   margin: 0 auto;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  background-color: rgb(226, 226, 226);
 }
