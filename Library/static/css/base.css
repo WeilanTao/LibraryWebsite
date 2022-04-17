@@ -8,7 +8,6 @@
   flex-grow: 1;
   flex: 1;
   overflow: hidden;
-  /* background-color: rgba(114, 175, 249, 0.275); */
 }
 
 /* This is the area for all content plugins */
@@ -16,7 +15,6 @@
   width: 70%;
   margin: 0 15% 0 15%;
   height: 80%;
-  /* background-color: green; */
 }
 
 .navbar-brand {

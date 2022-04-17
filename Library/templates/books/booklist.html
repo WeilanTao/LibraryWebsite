@@ -1,38 +1,43 @@
-{% extends 'base.html'%} {% load static %} {% block scripts%} {{ block.super }}
-<script>
-{% comment %} function url_gen(){
-  return "{% url 'users:login'%}"
-} {% endcomment %}
-</script>
+{% extends 'base.html'%} {% load static %} 
+{% block css %} {{ block.super }}
+<link rel="stylesheet" href="{% static 'books/css/booklist.css'%}" />
+{% endblock %}
+
+{% block scripts%} {{ block.super }}
 
 <script type="text/javascript" src="{% static 'books/js/books.js' %}"></script>
 
 {% endblock %} {% block content %}
 
 <div>
-  <h1>{{author_name}} Book List</h1>
-  <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
+  <h1 class="title">{{author_name}} Book List</h1>
+  {% comment %} <a href="{% url 'books:get_authors'%}"> Back to Author List</a> {% endcomment %}
 
-  <ul>
-    {% for book in books %}
-    <li>
-      <a
-        id="book_name"
-        href="{% url 'books:get_chapters' author_tag book.book_tag %}"
-        >{{book.book_name}}
-      </a>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-target="#exampleModal"
-        data-bs-whatever="{{book.book_name}}"
-        onClick="return Add_to_List_Modal('{{book.book_name}}','{{book.book_tag}}')"
-      >
-        Add to List
-      </button>
-    </li>
-    {% endfor %}
-  </ul>
+  <div class="bookslistdiv">
+    <ul >
+      {% for book in books %}
+      <li>
+      <div>
+        <a
+          id="book_name"
+          href="{% url 'books:get_chapters' author_tag book.book_tag %}"
+          >{{book.book_name}}
+        </a>
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="{{book.book_name}}"
+          onClick="return Add_to_List_Modal('{{book.book_name}}','{{book.book_tag}}')"
+        >
+          Add to List
+        </button> 
+      </div> 
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+ 
 </div>
 
 <!-- Modal -->
