@@ -1,3 +1,4 @@
+from termios import TAB0
 from django.db import models
 import sys
 
@@ -23,3 +24,11 @@ class UserToBookList(models.Model):
 class BookList(models.Model):
     booklist_id = models.IntegerField()
     book_tag = models.CharField(max_length=255)
+
+
+class Cart(models.Model):
+    c_user = models.ForeignKey(Users)
+    c_books = models.ForeignKey(books.Book)
+
+    c_book_num = models.IntegerField(default=1)
+    c_is_buy = models.BooleanField(default=True)
