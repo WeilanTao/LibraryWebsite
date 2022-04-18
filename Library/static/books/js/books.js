@@ -102,3 +102,17 @@ function Add_to_List() {
     );
   }
 }
+
+function sub_Shopping(book_tag) {
+  // $.get("/users/addbooktocart/", { book_tag: book_tag }, function (data) {
+  //   console.log("add shopping...", book_tag);
+  //   console.log("sub shopping...", book_tag);
+  // });
+}
+
+function add_Shopping(book_tag) {
+  $.get("/users/addbooktocart/", { book_tag: book_tag }, function (data) {
+    console.log(data);
+    console.log("add shopping...", book_tag);
+  });
+}

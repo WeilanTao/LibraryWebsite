@@ -15,6 +15,14 @@ import constant
 
 
 # Create your views here.
+
+## Shopping cart
+def addBookToCart(request):
+    # thanks to the middle ware i created, below code are executed iff a user is logged in
+
+    return HttpResponse("Hello")
+
+
 ## The BookList System
 def createBookList(request):
     user_id = request.session.get("user_id")

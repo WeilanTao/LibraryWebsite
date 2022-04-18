@@ -43,6 +43,14 @@
         >
           Add to List
         </button> 
+
+
+        <div id="shopping_cart">
+          <button class="sub_shopping" onclick="return sub_Shopping('{{book.book_tag}}')" > - </button>
+          <span> 0</span>
+          <button id="add_shopping" onclick="return add_Shopping('{{book.book_tag}}')"> + </button>
+        </div>
+        
       </div> 
       </li>
       {% endfor %}
