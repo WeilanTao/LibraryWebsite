@@ -1,0 +1,25 @@
+.menu_button {
+  border: none;
+  position: absolute;
+  right: 0px;
+  left: 80px;
+  z-index: 1001;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #000000;
+}
+
+.menu_button:focus {
+  outline: 0;
+  box-shadow: none;
+}
+.offcanvas {
+  width: 200px;
+}
+
+.title {
+  /* text-align: center; */
+  padding-bottom: 3%;
+  font-weight: bold;
+}

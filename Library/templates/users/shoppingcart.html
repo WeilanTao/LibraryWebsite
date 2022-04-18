@@ -1,0 +1,49 @@
+{% extends 'base.html'%} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'users/css/shoppingcart.css'%}" />
+
+{% endblock%} {% block scripts%} {{ block.super }}
+<script
+  type="text/javascript"
+  src="{% static 'users/js/shoppingcart.js' %}"
+></script>
+
+{% endblock %} {% block content %}
+<div>
+  <div class="off_canvas">
+    <button
+      class="menu_button"
+      data-bs-toggle="offcanvas"
+      href="#offcanvasExample"
+      role="button"
+      aria-controls="offcanvasExample"
+    ></button>
+
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasExample"
+      aria-labelledby="offcanvasExampleLabel"
+    >
+      <div class="offcanvas-body">
+          <a href="{% url "users:logout" %}">Log out</a>
+      </div>
+    </div>
+  </div>
+  <div class="title">Hello {{username}}</div>
+
+  <div class="list_area">
+    <div id="shopping-cart">
+      <ul>
+        {% for cart_item in cart_items %}
+        <li>
+         {{cart_item.c_books_tag.book_name}}
+         {{cart_item.c_book_num}}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

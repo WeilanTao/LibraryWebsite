@@ -18,6 +18,15 @@ import constant
 # Create your views here.
 
 ## Shopping cart
+def getshoppingcart(request):
+    user = request.user
+    cart_items = Cart.objects.filter(c_user=request.user)
+
+    data = {"cart_items": cart_items, "username": user.name}
+    print(data)
+    return render(request, "users/shoppingcart.html", context=data)
+
+
 def addBookToCart(request):
     # thanks to the middle ware i created, below code are executed iff a user is logged in
     book_tag = request.GET.get("book_tag")

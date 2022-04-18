@@ -5,9 +5,7 @@ from django.urls import reverse, resolve
 from django.http import HttpResponse, JsonResponse
 import constant
 
-REQUIRE_LIOGIN = [
-    "/users/addbooktocart/",
-]
+REQUIRE_LIOGIN = ["/users/addbooktocart/", "/users/getshoppingcart/"]
 
 
 class LoginMiddleware(MiddlewareMixin):

@@ -2,7 +2,6 @@ from django.urls import path
 from . import views
 
 
-
 app_name = "users"
 urlpatterns = [
     ## user login system
@@ -20,4 +19,5 @@ urlpatterns = [
     path("deleteBookFromList/", views.deleteBookFromList, name="deleteBookFromList"),
     ##shopping cart system
     path("addbooktocart/", views.addBookToCart, name="addBookToCart"),
+    path("getshoppingcart/", views.getshoppingcart, name="getshoppingcart"),
 ]

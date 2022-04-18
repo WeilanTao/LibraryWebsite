@@ -111,12 +111,12 @@ function sub_Shopping(book_tag) {
 }
 
 function add_Shopping(book_tag) {
+  var $add = $(this);
   $.get("/users/addbooktocart/", { book_tag: book_tag }, function (data) {
     if (data["status"] === 301) {
       window.open("/users/login", (target = "_self"));
+    } else if (data["status"] === 200) {
+      console.log("book added to cart");
     }
-
-    console.log(data);
-    // console.log("add shopping...", book_tag);
   });
 }
