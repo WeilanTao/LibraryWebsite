@@ -20,7 +20,9 @@ import constant
 def addBookToCart(request):
     # thanks to the middle ware i created, below code are executed iff a user is logged in
 
-    return HttpResponse("Hello")
+    data = {"status": 200, "msg": "ok"}
+
+    return JsonResponse(data=data)
 
 
 ## The BookList System

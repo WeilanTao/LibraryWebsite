@@ -2,9 +2,11 @@ from django.utils.deprecation import MiddlewareMixin
 from users.models import Users
 from django.shortcuts import render, redirect
 from django.urls import reverse, resolve
+from django.http import HttpResponse, JsonResponse
+import constant
 
 REQUIRE_LIOGIN = [
-    "/users/addBookToCart/",
+    "/users/addbooktocart/",
 ]
 
 
@@ -20,7 +22,13 @@ class LoginMiddleware(MiddlewareMixin):
                     user = Users.object.get(user_id=user_id)
                     request.user = user
                 except:
-                    return redirect(reverse("users:login"))
+                    data = {
+                        "status": constant.HTTP_REDIRECT,
+                        "msg": "user not available",
+                    }
+
+                    return JsonResponse(data=data)
 
             else:
-                return redirect(reverse("users:login"))
+                data = {"status": constant.HTTP_REDIRECT, "msg": "user not log in"}
+                return JsonResponse(data=data)
