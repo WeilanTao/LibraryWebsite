@@ -28,7 +28,7 @@ class BookList(models.Model):
 
 class Cart(models.Model):
     c_user = models.ForeignKey(Users, on_delete=models.CASCADE)
-    c_books = models.ForeignKey(books.models.Book, on_delete=models.CASCADE)
+    c_books_tag = models.ForeignKey(books.models.Book, on_delete=models.CASCADE)
 
     c_book_num = models.IntegerField(default=1)
     c_is_buy = models.BooleanField(default=True)

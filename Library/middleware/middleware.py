@@ -19,7 +19,7 @@ class LoginMiddleware(MiddlewareMixin):
 
             if user_id:
                 try:
-                    user = Users.object.get(user_id=user_id)
+                    user = Users.objects.get(id=user_id)
                     request.user = user
                 except:
                     data = {

@@ -117,6 +117,6 @@ function add_Shopping(book_tag) {
     }
 
     console.log(data);
-    console.log("add shopping...", book_tag);
+    // console.log("add shopping...", book_tag);
   });
 }

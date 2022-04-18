@@ -4,7 +4,8 @@ from re import U
 import sys
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from users.models import Users, UserToBookList, BookList
+from books.models import Book
+from users.models import Users, UserToBookList, BookList, Cart
 from django.urls import reverse, resolve
 from django.contrib.auth.hashers import make_password, check_password
 from django.core import serializers
@@ -19,8 +20,19 @@ import constant
 ## Shopping cart
 def addBookToCart(request):
     # thanks to the middle ware i created, below code are executed iff a user is logged in
+    book_tag = request.GET.get("book_tag")
+    carts = Cart.objects.filter(c_user=request.user, c_books_tag=book_tag)
+    if carts.exists():
+        cart_obj = carts.first()
+        cart_obj.c_book_num = cart_obj.c_book_num + 1
+    else:
+        book = Book.objects.filter(book_tag=book_tag).first()
+        cart_obj = Cart()
+        cart_obj.c_books_tag = book
+        cart_obj.c_user = request.user
 
-    data = {"status": 200, "msg": "ok"}
+    cart_obj.save()
+    data = {"status": 200, "msg": "add success", "c_books_num": cart_obj.c_book_num}
 
     return JsonResponse(data=data)
 
