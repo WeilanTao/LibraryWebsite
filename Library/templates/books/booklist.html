@@ -17,8 +17,11 @@
 
       <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-body">
-          
+          <a href="{% url 'users:mine' %}"> Mine </a>
+          </br>
           <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
+          </br>
+          <a href="{% url "users:logout" %}">Log out</a>
         </div>
       </div>
 

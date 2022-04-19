@@ -1,9 +1,31 @@
-{% extends 'base.html'%} 
-{% load static %} 
-{% block css %} {{ block.super }}
+{% extends 'base.html'%} {% load static %} {% block css %} {{ block.super }}
 
 <link rel="stylesheet" href="{% static 'books/css/authorslist.css'%}" />
 {% endblock %} {% block content %}
+
+<div class="off_canvas">
+  <button
+    class="menu_button"
+    data-bs-toggle="offcanvas"
+    href="#offcanvasExample"
+    role="button"
+    aria-controls="offcanvasExample"
+  ></button>
+
+  <div
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    id="offcanvasExample"
+    aria-labelledby="offcanvasExampleLabel"
+  >
+    <div class="offcanvas-body">
+      <a href="{% url 'users:mine' %}"> Mine </a>
+      </br>
+      <a href="{% url "users:logout" %}">Log out</a>
+    </div>
+  </div>
+</div>
+
 <div class="title">Author List</div>
 <div class="authorslist">
   <ul>

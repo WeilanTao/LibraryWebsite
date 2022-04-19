@@ -19,9 +19,13 @@
       aria-labelledby="offcanvasExampleLabel"
     >
       <div class="offcanvas-body">
+        <a href="{% url 'users:mine' %}"> Mine </a>
+        </br>
         <a href="{% url 'books:get_authors'%}"> Back to Author List</a>
         </br>
         <a href="{% url 'books:get_books' author_tag%}"> Back to Book List</a>
+        </br>
+      <a href="{% url "users:logout" %}">Log out</a>
       </div>
     </div>
   </div>

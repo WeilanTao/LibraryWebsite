@@ -20,6 +20,8 @@
       aria-labelledby="offcanvasExampleLabel"
     >
       <div class="offcanvas-body">
+        <a href="{% url 'users:mine' %}"> Mine </a>
+        </br>
          <a href="{% url 'books:get_chapters' author_tag chapter.book_tag%}">
     Back to Book
   </a>
@@ -34,7 +36,10 @@
     href="{% url 'books:next_previous' author_tag chapter.book_tag chapter.id 0%}"
     >Previous Chapter</a
   >
+  </br>
+      <a href="{% url "users:logout" %}">Log out</a>
       </div>
+
     </div>
   </div>
   <h1 class="title">{{book_name}} {{chapter.chapter_name}}</h1>
