@@ -125,6 +125,10 @@ def login(request):
     elif request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password", "encodeme")
+
+        if len(email) == 0 or len(password) == 0:
+            return redirect(reverse("users:register"))
+
         users = Users.objects.filter(email=email)
 
         if users.exists():
@@ -160,6 +164,9 @@ def register(request):
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
+
+        if len(username) == 0 or len(email) == 0 or len(password) == 0:
+            return redirect(reverse("users:register"))
 
         password = make_password(password)
 
