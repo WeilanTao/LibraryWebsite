@@ -1,26 +1,35 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from books.models import Author, Book, Chapter
 import sys
 import os
+import util
 
 # Create your views here.
 def get_authors(request):
     authors = Author.objects.order_by("author_name")
-    data = {"authors": authors}
 
-    return render(request, "books/authorslist.html", context=data)
+    if authors.exists():
+        data = {"authors": authors}
+        return render(request, "books/authorslist.html", context=data)
+
+    return util.handler404(request)
 
 
 def get_books(request, author_tag):
 
     books = Book.objects.filter(author_tag=author_tag)
 
-    author_name = get_author_name(author_tag)
+    print("hihihihihihi1111")
+    if books.exists():
+        print("hihihihihihi2222")
+        author_name = get_author_name(author_tag)
+        data = {"books": books, "author_tag": author_tag, "author_name": author_name}
 
-    data = {"books": books, "author_tag": author_tag, "author_name": author_name}
+        return render(request, "books/booklist.html", context=data)
 
-    return render(request, "books/booklist.html", context=data)
+    print("hihihihihihi3333")
+    return util.handler404(request)
 
 
 def get_chapters(request, author_tag, book_tag):
