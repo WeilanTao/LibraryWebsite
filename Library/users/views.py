@@ -21,7 +21,6 @@ import constant
 def getshoppingcart(request):
     user = request.user
 
-    
     cart_items = Cart.objects.filter(c_user=request.user)
 
     data = {"cart_items": cart_items, "username": user.name}
