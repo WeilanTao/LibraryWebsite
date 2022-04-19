@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from books.models import Author, Book, Chapter
+from django.http import HttpResponseRedirect
 import sys
 import os
 import util
@@ -20,40 +21,44 @@ def get_books(request, author_tag):
 
     books = Book.objects.filter(author_tag=author_tag)
 
-    print("hihihihihihi1111")
     if books.exists():
-        print("hihihihihihi2222")
         author_name = get_author_name(author_tag)
         data = {"books": books, "author_tag": author_tag, "author_name": author_name}
 
         return render(request, "books/booklist.html", context=data)
 
-    print("hihihihihihi3333")
     return util.handler404(request)
 
 
 def get_chapters(request, author_tag, book_tag):
-    print("hihihihihihihihihihihi")
     chapters = (
         Chapter.objects.filter(book_tag=book_tag)
         .defer("chapter_content")
         .order_by("chapter_index")
     )
+    if chapters.exists():
+        book_name = get_book_name(book_tag)
+        data = {"chapters": chapters, "author_tag": author_tag, "book_name": book_name}
 
-    book_name = get_book_name(book_tag)
+        return render(request, "books/chapterlist.html", context=data)
 
-    data = {"chapters": chapters, "author_tag": author_tag, "book_name": book_name}
-
-    return render(request, "books/chapterlist.html", context=data)
+    return util.handler404(request)
 
 
 def get_chapter_content(request, author_tag, book_tag, chapter_id):
 
-    chapter = Chapter.objects.filter(id=chapter_id).first()
-    book_name = get_book_name(book_tag)
-    data = {"chapter": chapter, "author_tag": author_tag, "book_name": book_name}
+    if not chapter_id.isdigit():
+        return util.handler404(request)
 
-    return render(request, "books/chaptercontent.html", context=data)
+    chapter = Chapter.objects.filter(id=chapter_id).first()
+
+    if chapter:
+        book_name = get_book_name(book_tag)
+        data = {"chapter": chapter, "author_tag": author_tag, "book_name": book_name}
+
+        return render(request, "books/chaptercontent.html", context=data)
+
+    return util.handler404(request)
 
 
 def get_next_previous(request, author_tag, book_tag, chapter_id, next_previous):
@@ -72,20 +77,21 @@ def get_next_previous(request, author_tag, book_tag, chapter_id, next_previous):
     isFound = 0
 
     book_name = get_book_name(book_tag)
-
+    data = {}
     for chapter in chapterslist:
         if isFound == 1:
-            data = {
-                "chapter": chapter,
-                "author_tag": author_tag,
-                "book_name": book_name,
-            }
+            data["chapter"] = chapter
+            data["author_tag"] = author_tag
+            data["book_name"] = book_name
             return render(request, "books/chaptercontent.html", context=data)
         if str(chapter.id) == chapter_id:
-            print("Found")
+            data["chapter"] = chapter
+            data["author_tag"] = author_tag
+            data["book_name"] = book_name
+            # print("Found")
             isFound = 1
 
-    return HttpResponse("hELLO")
+    return render(request, "books/chaptercontent.html", context=data)
 
 
 def get_author_name(author_tag):
