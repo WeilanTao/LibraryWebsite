@@ -33,6 +33,8 @@ function Add_to_List_Modal(book_name, book_tag) {
 
           document.getElementById("book_list").appendChild(booklist_li);
         }
+      } else {
+        console.log("user not logged in");
       }
     });
   });

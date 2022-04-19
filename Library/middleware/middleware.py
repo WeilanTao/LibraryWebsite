@@ -5,7 +5,7 @@ from django.urls import reverse, resolve
 from django.http import HttpResponse, JsonResponse
 import constant
 
-REQUIRE_LIOGIN_JSON = ["/users/createBookList/"]
+REQUIRE_LIOGIN_JSON = ["/users/createBookList/", "/users/getUserBookLists/"]
 REQUIRE_LIOGIN = ["/users/mine/"]
 
 

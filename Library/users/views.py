@@ -37,15 +37,14 @@ def createBookList(request):
 
 
 def getUserBookLists(request):
-    user_id = request.session.get("user_id")
-    data = {"status": 403, "msg": "user not logged in "}
-    if user_id:
-        userbooklist = UserToBookList.objects.filter(user_id=user_id).values()
+    user = request.user
+    user_id = user.id
 
-        # userbooklist_json = serializers.serialize("json", userbooklist)
-        data["userbooklist"] = list(userbooklist)
-        data["status"] = 200
-        data["msg"] = "user books get"
+    data = {}
+    userbooklist = UserToBookList.objects.filter(user_id=user_id).values()
+    data["userbooklist"] = list(userbooklist)
+    data["status"] = 200
+    data["msg"] = "user books get"
 
     return JsonResponse(data=data)
 
@@ -103,6 +102,7 @@ def logout(request):
     return redirect(reverse("books:get_authors"))
 
 
+# display the usercenter
 def mine(request):
     user = request.user
     user_id = user.id
@@ -178,6 +178,7 @@ def register(request):
         return redirect(reverse("users:login"))
 
 
+# for registration: check if a email is already registed
 def userverify(request):
     email = request.GET.get("email")
 
