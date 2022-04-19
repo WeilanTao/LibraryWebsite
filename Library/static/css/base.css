@@ -8,6 +8,7 @@
   flex-grow: 1;
   flex: 1;
   overflow: hidden;
+  background-color: #fbe7e0;
 }
 
 /* This is the area for all content plugins */
@@ -25,6 +26,6 @@
 .footer {
   width: 100%;
   text-align: center;
-  background-color: rgba(248, 249, 250, 255);
+  background-color: #ffd4c8;
   font-size: 13px;
 }
