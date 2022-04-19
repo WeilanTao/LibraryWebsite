@@ -17,21 +17,21 @@ import constant
 # Create your views here.
 ## The BookList System
 def createBookList(request):
-    user_id = request.session.get("user_id")
-    data = {"status": 403, "msg": "user not logged in "}
-    if user_id:
+    user = request.user
+    user_id = user.id
 
-        booklist_title = request.GET.get("booklist_title")
+    data = {}
 
-        usertobooklist = UserToBookList()
-        usertobooklist.user_id = user_id
-        usertobooklist.booklist_title = booklist_title
+    booklist_title = request.GET.get("booklist_title")
+    usertobooklist = UserToBookList()
+    usertobooklist.user_id = user_id
+    usertobooklist.booklist_title = booklist_title
 
-        usertobooklist.save()
-        # print(usertobooklist.booklist_id)
-        data["status"] = 200
-        data["msg"] = "book list created"
-        data["booklist_id"] = usertobooklist.booklist_id
+    usertobooklist.save()
+    # print(usertobooklist.booklist_id)
+    data["status"] = 200
+    data["msg"] = "book list created"
+    data["booklist_id"] = usertobooklist.booklist_id
 
     return JsonResponse(data=data)
 

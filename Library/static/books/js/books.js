@@ -65,8 +65,8 @@ function Add_to_List() {
       "/users/createBookList/",
       { booklist_title: booklist_title },
       function (data) {
-        console.log(data);
-        if (data["status"] === 403) {
+        // console.log(data);
+        if (data["status"] === 301) {
           // if user not logged in, redirect to the log in page
           $("#exampleModal")
             .on("hidden.bs.modal", function () {
