@@ -50,9 +50,11 @@ function addBook(inputstr) {
     "/users/addBookToList/",
     { book_list_id: book_list_id, book_tag: book_tag },
     function (data) {
-      console.log(data);
+      // console.log(data);
       if (data["status"] === 200) {
         console.log("book add to book list ");
+      } else if (data["status"] === 301) {
+        console.log("book already in the list ");
       }
     }
   );

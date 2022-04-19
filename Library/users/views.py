@@ -56,7 +56,17 @@ def getUserBookLists(request):
 def addBookToList(request):
     data = {"status": constant.HTTP_OK, "msg": "ok"}
     book_list_id = request.GET.get("book_list_id")
+    book_list_id = int(book_list_id)
     book_tag = request.GET.get("book_tag")
+
+    # check if book already in a list
+
+    exist_book = BookList.objects.filter(book_tag=book_tag, booklist_id=book_list_id)
+    if exist_book.exists():
+        data["status"] = constant.HTTP_REDIRECT
+        data["msg"] = "book already exists"
+        return JsonResponse(data=data)
+
     booklist = BookList()
     booklist.booklist_id = book_list_id
     booklist.book_tag = book_tag
