@@ -5,13 +5,14 @@ from django.urls import reverse, resolve
 from django.http import HttpResponse, JsonResponse
 import constant
 
-REQUIRE_LIOGIN = ["/users/addbooktocart/", "/users/getshoppingcart/"]
+REQUIRE_LIOGIN_JSON = ["/users/addbooktocart/"]
+REQUIRE_LIOGIN = ["/users/getshoppingcart/"]
 
 
 class LoginMiddleware(MiddlewareMixin):
     def process_request(self, request):
 
-        if request.path in REQUIRE_LIOGIN:
+        if request.path in REQUIRE_LIOGIN_JSON:
 
             user_id = request.session.get("user_id")
 
@@ -30,3 +31,23 @@ class LoginMiddleware(MiddlewareMixin):
             else:
                 data = {"status": constant.HTTP_REDIRECT, "msg": "user not log in"}
                 return JsonResponse(data=data)
+
+        if request.path in REQUIRE_LIOGIN:
+
+            user_id = request.session.get("user_id")
+
+            if user_id:
+                try:
+                    user = Users.objects.get(id=user_id)
+                    request.user = user
+                except:
+                    data = {
+                        "status": constant.HTTP_REDIRECT,
+                        "msg": "user not available",
+                    }
+
+                    return redirect(reverse("users:login"))
+
+            else:
+                data = {"status": constant.HTTP_REDIRECT, "msg": "user not log in"}
+                return redirect(reverse("users:login"))
