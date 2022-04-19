@@ -104,19 +104,17 @@ def logout(request):
 
 
 def mine(request):
-    user_id = request.session.get("user_id")
-
+    user = request.user
+    user_id = user.id
     data = {}
-    if user_id:
-        user = Users.objects.get(id=user_id)
-        userbooklists = UserToBookList.objects.filter(user_id=user_id).values()
 
-        data["username"] = user.name
-        data["booklists"] = userbooklists
+    user = Users.objects.get(id=user_id)
+    userbooklists = UserToBookList.objects.filter(user_id=user_id).values()
 
-        return render(request, "users/usercenter.html", context=data)
+    data["username"] = user.name
+    data["booklists"] = userbooklists
 
-    return redirect(reverse("users:login"))
+    return render(request, "users/usercenter.html", context=data)
 
 
 def login(request):

@@ -6,7 +6,7 @@ from django.http import HttpResponse, JsonResponse
 import constant
 
 REQUIRE_LIOGIN_JSON = ["/users/createBookList/"]
-REQUIRE_LIOGIN = []
+REQUIRE_LIOGIN = ["/users/mine/"]
 
 
 class LoginMiddleware(MiddlewareMixin):
