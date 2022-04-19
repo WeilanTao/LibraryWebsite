@@ -62,6 +62,7 @@ function Add_to_List() {
   var book_tag = document.getElementById("modal-book-tag").textContent;
   // console.log(book_tag);
 
+  //front end check null
   if (booklist_title.length) {
     $.getJSON(
       "/users/createBookList/",
@@ -82,7 +83,7 @@ function Add_to_List() {
               window.location.href = url;
             })
             .modal("hide");
-        } else {
+        } else if (data["status"] === 200) {
           console.log("book list has been created");
           var booklist_id = data["booklist_id"];
 
@@ -99,6 +100,11 @@ function Add_to_List() {
             "</button>";
 
           document.getElementById("book_list").appendChild(booklist_li);
+
+          //will refresh the modal input field
+          document.getElementById("booklist_title").value = "";
+        } else {
+          console.log(data);
         }
       }
     );

@@ -20,18 +20,22 @@ def createBookList(request):
     user = request.user
     user_id = user.id
 
-    data = {}
+    data = {"status": 404, "msg": "invalid title"}
 
     booklist_title = request.GET.get("booklist_title")
-    usertobooklist = UserToBookList()
-    usertobooklist.user_id = user_id
-    usertobooklist.booklist_title = booklist_title
 
-    usertobooklist.save()
-    # print(usertobooklist.booklist_id)
-    data["status"] = 200
-    data["msg"] = "book list created"
-    data["booklist_id"] = usertobooklist.booklist_id
+    # backend check null
+    if booklist_title:
+        print("saving list...")
+        usertobooklist = UserToBookList()
+        usertobooklist.user_id = user_id
+        usertobooklist.booklist_title = booklist_title
+
+        usertobooklist.save()
+        # print(usertobooklist.booklist_id)
+        data["status"] = 200
+        data["msg"] = "book list created"
+        data["booklist_id"] = usertobooklist.booklist_id
 
     return JsonResponse(data=data)
 
