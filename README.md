@@ -6,7 +6,7 @@ Django, Scrapy, Ajax
 
 # What I learned:
 * Leveraged Django framework to build up a MVC based web application.
-* Fully functional user system with login/register/session recording.
+* Fully functional user system with login/register/session checking based on Django middleware
 * Integrate Mysql with Django QuertSet; Many-to-may relationship to manage user-related operations.
 * Dynamically rendering page with Ajax
 * Integrated Scrapy framework with Django to get online resource. Scrapy is wired up with Django model and Mysql.
